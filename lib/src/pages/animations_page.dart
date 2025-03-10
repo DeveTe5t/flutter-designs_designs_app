@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class AnimationsPage extends StatelessWidget {
   const AnimationsPage({super.key});
@@ -20,6 +21,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> rotation;
+  late Animation<double> opacity;
 
   @override
   void initState() {
@@ -30,7 +32,27 @@ class _AnimatedSquareState extends State<AnimatedSquare>
       duration: const Duration(milliseconds: 4000),
     );
 
-    rotation = Tween(begin: 0.0, end: 2.0).animate(controller);
+    rotation = Tween(begin: 0.0, end: 2.0 * math.pi).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut),
+    ); // Curves.bounceOut
+
+    opacity = Tween(begin: 0.1, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Interval(0, 0.25, curve: Curves.easeOut),
+      ),
+    ); // 0.25 of total duration 4000 milliseconds
+
+    controller.addListener(() {
+      print('Status: ${controller.status}');
+      if (controller.status == AnimationStatus.completed) {
+        // controller.reverse();
+        controller.reset();
+      }
+      // else if (controller.status == AnimationStatus.dismissed) {
+      //   controller.forward();
+      // }
+    });
   }
 
   @override
@@ -43,15 +65,20 @@ class _AnimatedSquareState extends State<AnimatedSquare>
   @override
   Widget build(BuildContext context) {
     controller.forward();
+    // controller.repeat();
 
     // return const _Square();
     return AnimatedBuilder(
       animation: controller,
       // child: _Square(),
-      builder: (BuildContext context, Widget? child) {
+      child: _Square(),
+      builder: (BuildContext context, Widget? childSquare) {
         // print(rotation.value);
-        return Transform.rotate(angle: rotation.value, child: _Square());
-        // child: child,
+        // return Transform.rotate(angle: rotation.value, child: _Square());
+        return Transform.rotate(
+          angle: rotation.value,
+          child: Opacity(opacity: opacity.value, child: childSquare),
+        );
       },
     );
   }
