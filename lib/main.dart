@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '/src/pages/headers_page.dart';
+// import '/src/pages/headers_page.dart';
+// import '/src/pages/animations_page.dart';
+import '/src/challenges/animated_square_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
       ),
-      home: const HeadersPage(),
+      // home: const HeadersPage(),
+      home: const AnimatedSquarePage(),
     );
   }
 }
