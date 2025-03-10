@@ -22,6 +22,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
   late AnimationController controller;
   late Animation<double> rotation;
   late Animation<double> opacity;
+  late Animation<double> opacityOut;
   late Animation<double> moveToRight;
   late Animation<double> enlarge;
 
@@ -41,7 +42,15 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     opacity = Tween(begin: 0.1, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0, 0.5, curve: Curves.easeOut),
+        curve: Interval(0, 0.25, curve: Curves.easeOut),
+      ),
+    ); // 0.25 of total duration 4000 milliseconds
+
+    opacityOut = Tween(begin: 0.0, end: 1.0).animate(
+      // opacityOut = Tween(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.75, 1.0, curve: Curves.easeOut),
       ),
     ); // 0.25 of total duration 4000 milliseconds
 
@@ -56,7 +65,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     controller.addListener(() {
-      print('Status: ${controller.status}');
+      // print('Status: ${controller.status}');
       if (controller.status == AnimationStatus.completed) {
         // controller.repeat();
         // controller.reverse();
@@ -86,6 +95,8 @@ class _AnimatedSquareState extends State<AnimatedSquare>
       // child: _Square(),
       child: _Square(),
       builder: (BuildContext context, Widget? childSquare) {
+        // print('Opacity: ${opacity.value}');
+        // print('Rotation: ${rotation.value}');
         // print(rotation.value);
         // return Transform.rotate(angle: rotation.value, child: _Square());
         return Transform.translate(
@@ -93,8 +104,12 @@ class _AnimatedSquareState extends State<AnimatedSquare>
           child: Transform.rotate(
             angle: rotation.value,
             child: Opacity(
-              opacity: opacity.value,
-              child: Transform.scale(scale: enlarge.value, child: childSquare),
+              opacity: opacity.value - opacityOut.value,
+              child: Transform.scale(
+                scale: enlarge.value,
+                // child: Opacity(opacity: opacityOut.value, child: childSquare),
+                child: childSquare,
+              ),
             ),
           ),
         );
