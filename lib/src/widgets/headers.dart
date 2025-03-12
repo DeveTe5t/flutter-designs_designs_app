@@ -5,7 +5,7 @@ class SquareHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 300, color: Color(0xff615AAB));
+    return Container(height: 300, color: const Color(0xff615AAB));
   }
 }
 
@@ -16,7 +16,7 @@ class RoundedCornersHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xff615AAB),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(70),
@@ -47,7 +47,7 @@ class _HeaderDiagonalPainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     // stroke = border, fill = background
     // paint.style = PaintingStyle.stroke;
     paint.style = PaintingStyle.fill;
@@ -89,7 +89,7 @@ class _HeaderTrianglePainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -136,7 +136,7 @@ class _HeaderPointedPainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -176,7 +176,7 @@ class _HeaderCurvedPainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -220,7 +220,7 @@ class _HeaderWavePainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -280,7 +280,7 @@ class _HeaderWaveBottomPainter extends CustomPainter {
     final paint = Paint();
 
     // Properties
-    paint.color = Color(0xff615AAB);
+    paint.color = const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -343,9 +343,12 @@ class WaveGradientHeader extends StatelessWidget {
 class _HeaderWaveGradientPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect rect = Rect.fromCircle(center: Offset(0.0, 55.0), radius: 180);
+    final Rect rect = Rect.fromCircle(
+      center: const Offset(0.0, 55.0),
+      radius: 180,
+    );
 
-    final Gradient gradient = LinearGradient(
+    final Gradient gradient = const LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: <Color>[Color(0xff6D05E8), Color(0xffC012FF), Color(0xff6D05FA)],

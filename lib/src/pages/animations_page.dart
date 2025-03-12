@@ -6,7 +6,7 @@ class AnimationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: AnimatedSquare()));
+    return const Scaffold(body: Center(child: AnimatedSquare()));
   }
 }
 
@@ -42,7 +42,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     opacity = Tween(begin: 0.1, end: 1.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0, 0.25, curve: Curves.easeOut),
+        curve: const Interval(0, 0.25, curve: Curves.easeOut),
       ),
     ); // 0.25 of total duration 4000 milliseconds
 
@@ -50,7 +50,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
       // opacityOut = Tween(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.75, 1.0, curve: Curves.easeOut),
+        curve: const Interval(0.75, 1.0, curve: Curves.easeOut),
       ),
     ); // 0.25 of total duration 4000 milliseconds
 
@@ -93,7 +93,7 @@ class _AnimatedSquareState extends State<AnimatedSquare>
     return AnimatedBuilder(
       animation: controller,
       // child: _Square(),
-      child: _Square(),
+      child: const _Square(),
       builder: (BuildContext context, Widget? childSquare) {
         // print('Opacity: ${opacity.value}');
         // print('Rotation: ${rotation.value}');
@@ -126,7 +126,7 @@ class _Square extends StatelessWidget {
     return Container(
       width: 70,
       height: 70,
-      decoration: BoxDecoration(color: Colors.blue),
+      decoration: const BoxDecoration(color: Colors.blue),
     );
   }
 }

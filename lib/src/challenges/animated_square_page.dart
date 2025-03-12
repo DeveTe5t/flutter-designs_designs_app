@@ -5,7 +5,7 @@ class AnimatedSquarePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: _AnimatedSquare()));
+    return const Scaffold(body: Center(child: _AnimatedSquare()));
   }
 }
 
@@ -84,7 +84,7 @@ class _AnimatedSquareState extends State<_AnimatedSquare>
 
     return AnimatedBuilder(
       animation: controller,
-      child: _Square(),
+      child: const _Square(),
       builder: (BuildContext context, Widget? child) {
         return Transform.translate(
           offset: Offset(

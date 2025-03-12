@@ -8,6 +8,6 @@ class HeadersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: AnimationsPage());
+    return const Scaffold(body: AnimationsPage());
   }
 }
