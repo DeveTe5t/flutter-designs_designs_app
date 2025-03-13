@@ -107,21 +107,26 @@ class _MyRadialProgress extends CustomPainter {
 
     // Added
     final Rect rect = Rect.fromCircle(
-      center: const Offset(0.0, 55.0),
+      center: const Offset(0.0, 0.0),
       radius: 180,
     );
 
     final Gradient gradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      // colors: <Color>[Color(0xff6D05E8), Color(0xffC012FF), Color(0xff6D05FA)],
+      // colors: <Color>[Color(0xffC012FF), Color(0xff6D05E8), Colors.red],
+      // colors: <Color>[
+      //   primaryColor.withRed(Random().nextInt(255)),
+      //   primaryColor.withGreen(Random().nextInt(255)),
+      //   primaryColor.withBlue(Random().nextInt(255)),
+      // ],
       colors: <Color>[
-        primaryColor.withRed(Random().nextInt(255)),
-        primaryColor.withGreen(Random().nextInt(255)),
-        primaryColor.withBlue(Random().nextInt(255)),
+        primaryColor.withRed(255),
+        primaryColor.withBlue(255),
+        primaryColor.withGreen(255),
       ],
       // relation between colors and offset
-      stops: [0.2, 0.5, 1.0],
+      stops: [0.3, 0.5, 1.0],
     );
 
     paint.style = PaintingStyle.fill;
@@ -133,8 +138,7 @@ class _MyRadialProgress extends CustomPainter {
         Paint()
           ..strokeWidth = strockWidthPrimary
           ..strokeCap = StrokeCap.round
-          ..color =
-              primaryColor //Colors.pink
+          // ..color = primaryColor //Colors.pink
           ..style = PaintingStyle.stroke
           ..shader = gradient.createShader(rect);
 
