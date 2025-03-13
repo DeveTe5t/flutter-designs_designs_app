@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,34 @@ class CircularPregressPage extends StatefulWidget {
   State<CircularPregressPage> createState() => _CircularPregressPageState();
 }
 
-class _CircularPregressPageState extends State<CircularPregressPage> {
-  double percent = 10.0;
+class _CircularPregressPageState extends State<CircularPregressPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  double percent = 0.0;
+  double newPercent = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    controller.addListener(() {
+      // print('controller value: $controller.value');
+      percent = lerpDouble(percent, newPercent, controller.value) ?? 0;
+      // percent = lerpDouble(percent, newPercent, controller.value)!;
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +52,20 @@ class _CircularPregressPageState extends State<CircularPregressPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          percent = newPercent;
+          newPercent += 10;
+          if (newPercent > 100) {
+            newPercent = 0;
+            percent = 0;
+          }
+
+          controller.forward(from: 0.0);
+
+          setState(() {});
+        },
         backgroundColor: Colors.pink,
-        child: const Icon(Icons.refresh),
+        child: const Icon(Icons.refresh, color: Colors.white),
       ),
     );
   }
