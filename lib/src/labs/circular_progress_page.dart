@@ -15,6 +15,7 @@ class _CircularPregressPageState extends State<CircularPregressPage>
   late AnimationController controller;
   double percent = 0.0;
   double newPercent = 0.0;
+  // late Animation<double> animationPercent;
 
   @override
   void initState() {
@@ -41,7 +42,26 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
   @override
   Widget build(BuildContext context) {
+    // animationPercent = Tween(
+    //   begin: percent,
+    //   end: newPercent,
+    // ).animate(controller);
+
     return Scaffold(
+      // body: AnimatedBuilder(
+      //   animation: controller,
+      //   builder: (BuildContext context, Widget? child) {
+      //     return Center(
+      //       child: Container(
+      //         padding: const EdgeInsets.all(5),
+      //         width: 300,
+      //         height: 300,
+      //         // color: Colors.blue,
+      //         child: CustomPaint(painter: _MyRadialProgress(percent)),
+      //       ),
+      //     );
+      //   },
+      // ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(5),
