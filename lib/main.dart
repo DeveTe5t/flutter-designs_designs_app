@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-// import '/src/pages/headers_page.dart';
 // import '/src/pages/animations_page.dart';
 // import '/src/challenges/animated_square_page.dart';
 // import 'src/labs/circular_progress_page.dart';
+// import '/src/widgets/headers.dart';
 import '/src/pages/circle_graphic_page.dart';
 
 void main() {
