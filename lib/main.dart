@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // import '/src/challenges/animated_square_page.dart';
 // import 'src/labs/circular_progress_page.dart';
 // import '/src/widgets/headers.dart';
-import '/src/pages/circle_graphic_page.dart';
+// import '/src/pages/circle_graphic_page.dart';
+import '/src/pages/slide_show_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
       ),
-      home: const CircleGraphicPage(),
+      home: const SlideShowPage(),
     );
   }
 }
