@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+import '/src/models/slider_model.dart';
 
 class SlideShowPage extends StatelessWidget {
   const SlideShowPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(children: [Expanded(child: _Slides()), _Dots()]),
+    return ChangeNotifierProvider(
+      create: (_) => SliderModel(),
+      child: const Scaffold(
+        body: Center(
+          child: Column(children: [Expanded(child: _Slides()), _Dots()]),
+        ),
       ),
     );
   }
@@ -25,36 +31,70 @@ class _Dots extends StatelessWidget {
       // color: Colors.blue,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [_Dot(), _Dot(), _Dot()],
+        children: [_Dot(0), _Dot(1), _Dot(2)],
       ),
     );
   }
 }
 
 class _Dot extends StatelessWidget {
-  const _Dot();
+  final int index;
+  const _Dot(this.index);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       width: 12,
       height: 12,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: const BoxDecoration(
-        color: Colors.grey,
+      decoration: BoxDecoration(
+        color:
+            (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5)
+                ? Colors.blue
+                : Colors.grey,
         shape: BoxShape.circle,
       ),
     );
   }
 }
 
-class _Slides extends StatelessWidget {
+class _Slides extends StatefulWidget {
   const _Slides();
+
+  @override
+  State<_Slides> createState() => _SlidesState();
+}
+
+class _SlidesState extends State<_Slides> {
+  final pageViewController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    pageViewController.addListener(() {
+      print('Current page: ${pageViewController.page}');
+      // update provider or SlideModel
+      // listen: false in initState
+      Provider.of<SliderModel>(context, listen: false).currentPage =
+          pageViewController.page ?? 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    pageViewController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
+        controller: pageViewController,
         children: [
           const _Slide('assets/svgs/slide-1.svg'),
           const _Slide('assets/svgs/slide-2.svg'),
