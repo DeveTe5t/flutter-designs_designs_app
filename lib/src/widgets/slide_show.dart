@@ -13,7 +13,7 @@ class SlideShow extends StatelessWidget {
       create: (_) => SliderModel(),
       child: Center(
         child: Column(
-          children: [Expanded(child: _Slides(slides)), const _Dots()],
+          children: [Expanded(child: _Slides(slides)), _Dots(slides.length)],
         ),
       ),
     );
@@ -21,17 +21,18 @@ class SlideShow extends StatelessWidget {
 }
 
 class _Dots extends StatelessWidget {
-  const _Dots();
+  final int totalDots;
+  const _Dots(this.totalDots);
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       width: double.infinity,
       height: 70.0,
-      // color: Colors.blue,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [_Dot(0), _Dot(1), _Dot(2)],
+        // children: [for (int i = 0; i < totalDots; i++) _Dot(i)],
+        children: List.generate(totalDots, (i) => _Dot(i)),
       ),
     );
   }
@@ -94,19 +95,12 @@ class _SlidesState extends State<_Slides> {
   Widget build(BuildContext context) {
     return PageView(
       controller: pageViewController,
-      // children: [
-      //   const _Slide('assets/svgs/slide-1.svg'),
-      //   const _Slide('assets/svgs/slide-2.svg'),
-      //   const _Slide('assets/svgs/slide-3.svg'),
-      // ],
       children: widget.slides.map((slide) => _Slide(slide)).toList(),
     );
   }
 }
 
 class _Slide extends StatelessWidget {
-  // final String svg;
-  // const _Slide(this.svg);
   final Widget slide;
   const _Slide(this.slide);
 
@@ -116,7 +110,6 @@ class _Slide extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       padding: const EdgeInsets.all(30),
-      // child: SvgPicture.asset(svg),
       child: slide,
     );
   }
