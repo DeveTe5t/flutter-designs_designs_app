@@ -78,9 +78,13 @@ class _Dots extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 70.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(totalDots, (i) => _Dot(i)),
+      // TODO: add scroll controller and move to shows last dots
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(totalDots, (i) => _Dot(i)),
+        ),
       ),
     );
   }

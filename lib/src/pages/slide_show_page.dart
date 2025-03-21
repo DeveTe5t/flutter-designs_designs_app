@@ -49,9 +49,9 @@ class MySlideShow extends StatelessWidget {
         const Center(child: Text('Heya2!')),
         const Center(child: Text('Heya3!')),
         const Center(child: Text('Heya4!')),
-        // const Center(child: Text('Heya5!')),
+        const Center(child: Text('Heya5!')),
         // TODO: overflow horizontal in dots
-        // const Center(child: Text('Heya6!')),
+        const Center(child: Text('Heya6!')),
       ],
     );
   }
