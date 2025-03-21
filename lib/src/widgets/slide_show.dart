@@ -1,49 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/src/models/slider_model.dart';
-
 class SlideShow extends StatelessWidget {
   final List<Widget> slides;
   final bool dotsUp;
   final Color dotPrimaryColor;
   final Color dotSecondaryColor;
+  final double dotPrimarySize;
+  final double dotSecondarySize;
   const SlideShow({
     super.key,
     required this.slides,
     this.dotsUp = false,
     this.dotPrimaryColor = Colors.blue,
     this.dotSecondaryColor = Colors.grey,
+    this.dotPrimarySize = 12,
+    this.dotSecondarySize = 12,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => SliderModel(),
+      create: (_) => _SliderModel(),
+      // ..dotPrimaryColor = dotPrimaryColor
+      // ..dotSecondaryColor = dotSecondaryColor
+      // ..dotPrimarySize = dotPrimarySize
+      // ..dotSecondarySize = dotSecondarySize,
       child: SafeArea(
         child: Center(
-          child: Column(
-            children: [
-              if (dotsUp)
-                _Dots(slides.length, dotPrimaryColor, dotSecondaryColor),
-
-              Expanded(child: _Slides(slides)),
-
-              if (!dotsUp)
-                _Dots(slides.length, dotPrimaryColor, dotSecondaryColor),
-            ],
+          child: Builder(
+            builder: (BuildContext context) {
+              Provider.of<_SliderModel>(context).dotPrimaryColor =
+                  dotPrimaryColor;
+              Provider.of<_SliderModel>(context).dotSecondaryColor =
+                  dotSecondaryColor;
+              Provider.of<_SliderModel>(context).dotPrimarySize =
+                  dotPrimarySize;
+              Provider.of<_SliderModel>(context).dotSecondarySize =
+                  dotSecondarySize;
+              return _CreateSlideShowStructure(dotsUp: dotsUp, slides: slides);
+            },
           ),
+          // child: _CreateSlideShowStructure(dotsUp: dotsUp, slides: slides),
         ),
       ),
     );
   }
 }
 
+class _CreateSlideShowStructure extends StatelessWidget {
+  const _CreateSlideShowStructure({required this.dotsUp, required this.slides});
+
+  final bool dotsUp;
+  final List<Widget> slides;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (dotsUp) _Dots(slides.length),
+
+        Expanded(child: _Slides(slides)),
+
+        if (!dotsUp) _Dots(slides.length),
+      ],
+    );
+  }
+}
+
 class _Dots extends StatelessWidget {
   final int totalDots;
-  final Color dotPrimaryColor;
-  final Color dotSecondaryColor;
-  const _Dots(this.totalDots, this.dotPrimaryColor, this.dotSecondaryColor);
+  const _Dots(this.totalDots);
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +79,7 @@ class _Dots extends StatelessWidget {
       height: 70.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        // children: [for (int i = 0; i < totalDots; i++) _Dot(i)],
-        children: List.generate(
-          totalDots,
-          (i) => _Dot(i, dotPrimaryColor, dotSecondaryColor),
-        ),
+        children: List.generate(totalDots, (i) => _Dot(i)),
       ),
     );
   }
@@ -64,26 +87,30 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
-  final Color dotPrimaryColor;
-  final Color dotSecondaryColor;
-  const _Dot(this.index, this.dotPrimaryColor, this.dotSecondaryColor);
+  const _Dot(this.index);
 
   @override
   Widget build(BuildContext context) {
-    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
+    final slideShowModel = Provider.of<_SliderModel>(context);
+
+    final double size;
+    final Color color;
+
+    if (slideShowModel.currentPage >= index - 0.5 &&
+        slideShowModel.currentPage < index + 0.5) {
+      size = slideShowModel.dotPrimarySize;
+      color = slideShowModel.dotPrimaryColor;
+    } else {
+      size = slideShowModel.dotSecondarySize;
+      color = slideShowModel.dotSecondaryColor;
+    }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      width: 12,
-      height: 12,
+      width: size,
+      height: size,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-        color:
-            (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5)
-                ? dotPrimaryColor
-                : dotSecondaryColor,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
 }
@@ -106,7 +133,7 @@ class _SlidesState extends State<_Slides> {
     pageViewController.addListener(() {
       // update provider or SlideModel
       // listen: false in initState
-      Provider.of<SliderModel>(context, listen: false).currentPage =
+      Provider.of<_SliderModel>(context, listen: false).currentPage =
           pageViewController.page ?? 0;
     });
   }
@@ -138,5 +165,47 @@ class _Slide extends StatelessWidget {
       padding: const EdgeInsets.all(30),
       child: slide,
     );
+  }
+}
+
+class _SliderModel with ChangeNotifier {
+  double _currentPage = 0;
+  Color _dotPrimaryColor = Colors.blue;
+  Color _dotSecondaryColor = Colors.grey;
+  double _dotPrimarySize = 12;
+  double _dotSecondarySize = 12;
+
+  double get currentPage => _currentPage;
+  set currentPage(double currentPage) {
+    _currentPage = currentPage;
+    notifyListeners();
+  }
+
+  Color get dotPrimaryColor => _dotPrimaryColor;
+  set dotPrimaryColor(Color color) {
+    if (color != _dotPrimaryColor) {
+      _dotPrimaryColor = color;
+    }
+  }
+
+  Color get dotSecondaryColor => _dotSecondaryColor;
+  set dotSecondaryColor(Color color) {
+    if (color != _dotSecondaryColor) {
+      _dotSecondaryColor = color;
+    }
+  }
+
+  double get dotPrimarySize => _dotPrimarySize;
+  set dotPrimarySize(double size) {
+    if (size != _dotPrimarySize) {
+      _dotPrimarySize = size;
+    }
+  }
+
+  double get dotSecondarySize => _dotSecondarySize;
+  set dotSecondarySize(double size) {
+    if (size != _dotSecondarySize) {
+      _dotSecondarySize = size;
+    }
   }
 }
