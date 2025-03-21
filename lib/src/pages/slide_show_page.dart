@@ -27,7 +27,7 @@ class MySlideShow extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideShow(
       // dotsUp: true,
-      dotPrimaryColor: Colors.blue,
+      dotPrimaryColor: Colors.green,
       dotSecondaryColor: Colors.black26,
       dotPrimarySize: 20,
       dotSecondarySize: 12,

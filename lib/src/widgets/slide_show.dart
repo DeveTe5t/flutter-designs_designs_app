@@ -170,10 +170,14 @@ class _Slide extends StatelessWidget {
 
 class _SliderModel with ChangeNotifier {
   double _currentPage = 0;
-  Color _dotPrimaryColor = Colors.blue;
-  Color _dotSecondaryColor = Colors.grey;
-  double _dotPrimarySize = 12;
-  double _dotSecondarySize = 12;
+  // Color _dotPrimaryColor = Colors.blue;
+  // Color _dotSecondaryColor = Colors.grey;
+  // double _dotPrimarySize = 12;
+  // double _dotSecondarySize = 12;
+  Color dotPrimaryColor = Colors.blue;
+  Color dotSecondaryColor = Colors.grey;
+  double dotPrimarySize = 12;
+  double dotSecondarySize = 12;
 
   double get currentPage => _currentPage;
   set currentPage(double currentPage) {
@@ -181,31 +185,31 @@ class _SliderModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Color get dotPrimaryColor => _dotPrimaryColor;
-  set dotPrimaryColor(Color color) {
-    if (color != _dotPrimaryColor) {
-      _dotPrimaryColor = color;
-    }
-  }
+  // Color get dotPrimaryColor => _dotPrimaryColor;
+  // set dotPrimaryColor(Color color) {
+  //   if (color != _dotPrimaryColor) {
+  //     _dotPrimaryColor = color;
+  //   }
+  // }
 
-  Color get dotSecondaryColor => _dotSecondaryColor;
-  set dotSecondaryColor(Color color) {
-    if (color != _dotSecondaryColor) {
-      _dotSecondaryColor = color;
-    }
-  }
+  // Color get dotSecondaryColor => _dotSecondaryColor;
+  // set dotSecondaryColor(Color color) {
+  //   if (color != _dotSecondaryColor) {
+  //     _dotSecondaryColor = color;
+  //   }
+  // }
 
-  double get dotPrimarySize => _dotPrimarySize;
-  set dotPrimarySize(double size) {
-    if (size != _dotPrimarySize) {
-      _dotPrimarySize = size;
-    }
-  }
+  // double get dotPrimarySize => _dotPrimarySize;
+  // set dotPrimarySize(double size) {
+  //   if (size != _dotPrimarySize) {
+  //     _dotPrimarySize = size;
+  //   }
+  // }
 
-  double get dotSecondarySize => _dotSecondarySize;
-  set dotSecondarySize(double size) {
-    if (size != _dotSecondarySize) {
-      _dotSecondarySize = size;
-    }
-  }
+  // double get dotSecondarySize => _dotSecondarySize;
+  // set dotSecondarySize(double size) {
+  //   if (size != _dotSecondarySize) {
+  //     _dotSecondarySize = size;
+  //   }
+  // }
 }
