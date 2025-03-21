@@ -38,10 +38,11 @@ class SlideShow extends StatelessWidget {
                   dotPrimarySize;
               Provider.of<_SliderModel>(context).dotSecondarySize =
                   dotSecondarySize;
-              return _CreateSlideShowStructure(dotsUp: dotsUp, slides: slides);
+              Provider.of<_SliderModel>(context).dotsUp = dotsUp;
+              return _CreateSlideShowStructure(slides: slides);
             },
           ),
-          // child: _CreateSlideShowStructure(dotsUp: dotsUp, slides: slides),
+          // child: _CreateSlideShowStructure(slides: slides),
         ),
       ),
     );
@@ -49,20 +50,20 @@ class SlideShow extends StatelessWidget {
 }
 
 class _CreateSlideShowStructure extends StatelessWidget {
-  const _CreateSlideShowStructure({required this.dotsUp, required this.slides});
+  const _CreateSlideShowStructure({required this.slides});
 
-  final bool dotsUp;
   final List<Widget> slides;
 
   @override
   Widget build(BuildContext context) {
+    final slideDotsUp = Provider.of<_SliderModel>(context).dotsUp;
     return Column(
       children: [
-        if (dotsUp) _Dots(slides.length),
+        if (slideDotsUp) _Dots(slides.length),
 
         Expanded(child: _Slides(slides)),
 
-        if (!dotsUp) _Dots(slides.length),
+        if (!slideDotsUp) _Dots(slides.length),
       ],
     );
   }
@@ -169,6 +170,7 @@ class _Slide extends StatelessWidget {
 
 class _SliderModel with ChangeNotifier {
   double _currentPage = 0;
+  bool dotsUp = false;
   Color dotPrimaryColor = Colors.blue;
   Color dotSecondaryColor = Colors.grey;
   double dotPrimarySize = 12;
