@@ -41,6 +41,7 @@ class SlideShow extends StatelessWidget {
               Provider.of<_SliderModel>(context).dotSecondarySize =
                   dotSecondarySize;
               Provider.of<_SliderModel>(context).dotsUp = dotsUp;
+
               return _CreateSlideShowStructure(slides: slides);
             },
           ),
@@ -135,6 +136,7 @@ class _Slides extends StatefulWidget {
 class _SlidesState extends State<_Slides> {
   final pageViewController = PageController();
   late Timer intervalSlider;
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -144,27 +146,37 @@ class _SlidesState extends State<_Slides> {
       // listen: false in initState
       Provider.of<_SliderModel>(context, listen: false).currentPage =
           pageViewController.page ?? 0;
-
-      // if (pageViewController.page == widget.slides.length - 1) {
-      //   pageViewController.jumpToPage(0);
-      // }
     });
 
     intervalSlider = Timer.periodic(const Duration(seconds: 2), (timer) {
-      // print('Tick');
-      if (pageViewController.page == widget.slides.length - 1) {
-        // pageViewController.nextPage(
-        //   duration: const Duration(milliseconds: 2000),
-        //   curve: Curves.easeOut,
-        // );
-        pageViewController.jumpToPage(0);
+      // way 2
+      if (_currentPage < widget.slides.length - 1) {
+        _currentPage++;
       } else {
-        pageViewController.nextPage(
-          duration: const Duration(milliseconds: 2000),
-          curve: Curves.easeOut,
-        );
-        pageViewController.jumpToPage(pageViewController.page!.toInt() + 1);
+        _currentPage = 0;
       }
+
+      pageViewController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.easeInOut,
+      );
+
+      // way 1
+      // if (pageViewController.page == widget.slides.length - 1) {
+      //   pageViewController.jumpToPage(0);
+      // } else {
+      //   // pageViewController.jumpToPage(pageViewController.page!.toInt() + 1);
+      //   // pageViewController.nextPage(
+      //   //   duration: const Duration(milliseconds: 1000),
+      //   //   curve: Curves.easeInOut,
+      //   // );
+      //   pageViewController.animateToPage(
+      //     pageViewController.page!.toInt() + 1,
+      //     duration: const Duration(milliseconds: 1000),
+      //     curve: Curves.easeInOut,
+      //   );
+      // }
     });
   }
 
