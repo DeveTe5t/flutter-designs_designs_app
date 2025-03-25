@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,11 +81,13 @@ class _Dots extends StatelessWidget {
       width: double.infinity,
       height: 70.0,
       // TODO: add scroll controller and move to shows last dots
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(totalDots, (i) => _Dot(i)),
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(totalDots, (i) => _Dot(i)),
+          ),
         ),
       ),
     );
@@ -130,6 +134,7 @@ class _Slides extends StatefulWidget {
 
 class _SlidesState extends State<_Slides> {
   final pageViewController = PageController();
+  late Timer intervalSlider;
 
   @override
   void initState() {
@@ -139,12 +144,34 @@ class _SlidesState extends State<_Slides> {
       // listen: false in initState
       Provider.of<_SliderModel>(context, listen: false).currentPage =
           pageViewController.page ?? 0;
+
+      // if (pageViewController.page == widget.slides.length - 1) {
+      //   pageViewController.jumpToPage(0);
+      // }
+    });
+
+    intervalSlider = Timer.periodic(const Duration(seconds: 2), (timer) {
+      // print('Tick');
+      if (pageViewController.page == widget.slides.length - 1) {
+        // pageViewController.nextPage(
+        //   duration: const Duration(milliseconds: 2000),
+        //   curve: Curves.easeOut,
+        // );
+        pageViewController.jumpToPage(0);
+      } else {
+        pageViewController.nextPage(
+          duration: const Duration(milliseconds: 2000),
+          curve: Curves.easeOut,
+        );
+        pageViewController.jumpToPage(pageViewController.page!.toInt() + 1);
+      }
     });
   }
 
   @override
   void dispose() {
     pageViewController.dispose();
+    intervalSlider.cancel();
     super.dispose();
   }
 
