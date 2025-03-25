@@ -83,11 +83,14 @@ class _Dots extends StatelessWidget {
       height: 70.0,
       // TODO: add scroll controller and move to shows last dots
       child: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(totalDots, (i) => _Dot(i)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(totalDots, (i) => _Dot(i)),
+            ),
           ),
         ),
       ),
