@@ -3,6 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+class AutoMoveConfig {
+  final bool loop;
+  final Duration duration;
+
+  const AutoMoveConfig({
+    this.loop = false,
+    this.duration = const Duration(seconds: 2),
+  });
+}
+
 class SlideShow extends StatelessWidget {
   final List<Widget> slides;
   final bool dotsUp;
@@ -10,8 +20,8 @@ class SlideShow extends StatelessWidget {
   final Color dotSecondaryColor;
   final double dotPrimarySize;
   final double dotSecondarySize;
-  // final bool autoMove;
-  final Map<String, dynamic> autoMove;
+  // final Map<String, dynamic> autoMove;
+  final AutoMoveConfig autoMoveConfig;
   const SlideShow({
     super.key,
     required this.slides,
@@ -20,9 +30,8 @@ class SlideShow extends StatelessWidget {
     this.dotSecondaryColor = Colors.grey,
     this.dotPrimarySize = 12,
     this.dotSecondarySize = 12,
-    // this.autoMove = false,
-    // required this.autoMove = const {'loop': false, 'duration': Duration(seconds: 2)},
-    required this.autoMove,
+    // this.autoMove = const {'loop': false, 'duration': Duration(seconds: 2)},
+    this.autoMoveConfig = const AutoMoveConfig(),
   });
 
   @override
@@ -46,9 +55,11 @@ class SlideShow extends StatelessWidget {
               Provider.of<_SliderModel>(context).dotSecondarySize =
                   dotSecondarySize;
               Provider.of<_SliderModel>(context).dotsUp = dotsUp;
-              Provider.of<_SliderModel>(context).autoMove = autoMove['loop'];
+              // Provider.of<_SliderModel>(context).autoMove = autoMove['loop'];
+              // Provider.of<_SliderModel>(context).autoMoveDuration = autoMove['duration'];
+              Provider.of<_SliderModel>(context).autoMove = autoMoveConfig.loop;
               Provider.of<_SliderModel>(context).autoMoveDuration =
-                  autoMove['duration'];
+                  autoMoveConfig.duration;
 
               return _CreateSlideShowStructure(slides: slides);
             },

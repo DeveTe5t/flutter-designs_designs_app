@@ -31,10 +31,11 @@ class MySlideShow extends StatelessWidget {
       // dotSecondaryColor: Colors.black26,
       dotPrimarySize: 20,
       dotSecondarySize: 12,
-      // autoMove: true,
-      // autoMove['loop']: true,
-      // autoMove['duration']: const Duration(seconds: 2),
-      autoMove: {'loop': true, 'duration': const Duration(milliseconds: 2500)},
+      // autoMove: {'loop': true, 'duration': const Duration(milliseconds: 2500)},
+      autoMoveConfig: const AutoMoveConfig(
+        loop: true,
+        duration: Duration(milliseconds: 2500),
+      ),
       slides: [
         // SvgPicture.asset('assets/svgs/slide-1.svg'),
         // SvgPicture.asset('assets/svgs/slide-2.svg'),
