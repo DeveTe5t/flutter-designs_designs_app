@@ -20,7 +20,6 @@ class SlideShow extends StatelessWidget {
   final Color dotSecondaryColor;
   final double dotPrimarySize;
   final double dotSecondarySize;
-  // final Map<String, dynamic> autoMove;
   final AutoMoveConfig autoMoveConfig;
   const SlideShow({
     super.key,
@@ -30,7 +29,6 @@ class SlideShow extends StatelessWidget {
     this.dotSecondaryColor = Colors.grey,
     this.dotPrimarySize = 12,
     this.dotSecondarySize = 12,
-    // this.autoMove = const {'loop': false, 'duration': Duration(seconds: 2)},
     this.autoMoveConfig = const AutoMoveConfig(),
   });
 
@@ -55,8 +53,6 @@ class SlideShow extends StatelessWidget {
               Provider.of<_SliderModel>(context).dotSecondarySize =
                   dotSecondarySize;
               Provider.of<_SliderModel>(context).dotsUp = dotsUp;
-              // Provider.of<_SliderModel>(context).autoMove = autoMove['loop'];
-              // Provider.of<_SliderModel>(context).autoMoveDuration = autoMove['duration'];
               Provider.of<_SliderModel>(context).autoMove = autoMoveConfig.loop;
               Provider.of<_SliderModel>(context).autoMoveDuration =
                   autoMoveConfig.duration;
@@ -100,7 +96,6 @@ class _Dots extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 70.0,
-      // TODO: add scroll controller and move to shows last dots
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

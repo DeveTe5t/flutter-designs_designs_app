@@ -31,7 +31,6 @@ class MySlideShow extends StatelessWidget {
       // dotSecondaryColor: Colors.black26,
       dotPrimarySize: 20,
       dotSecondarySize: 12,
-      // autoMove: {'loop': true, 'duration': const Duration(milliseconds: 2500)},
       autoMoveConfig: const AutoMoveConfig(
         loop: true,
         duration: Duration(milliseconds: 2500),
@@ -61,37 +60,3 @@ class MySlideShow extends StatelessWidget {
     );
   }
 }
-
-// class AutoMoveConfig {
-//   final bool loop;
-//   final Duration duration;
-
-//   AutoMoveConfig({this.loop = false, this.duration = const Duration(seconds: 2)});
-// }
-
-// class SlideShow extends StatelessWidget {
-//   final List<Widget> slides;
-//   final bool dotsUp;
-//   final Color dotPrimaryColor;
-//   final Color dotSecondaryColor;
-//   final double dotPrimarySize;
-//   final double dotSecondarySize;
-//   final AutoMoveConfig autoMove;
-
-//   const SlideShow({
-//     super.key,
-//     required this.slides,
-//     this.dotsUp = false,
-//     this.dotPrimaryColor = Colors.blue,
-//     this.dotSecondaryColor = Colors.grey,
-//     this.dotPrimarySize = 12,
-//     this.dotSecondarySize = 12,
-//     this.autoMove = const AutoMoveConfig(),
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // Usar el objeto autoMove aquí
-//     return Container(); // Ejemplo de widget
-//   }
-// }
