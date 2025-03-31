@@ -1,3 +1,4 @@
+// way 1: with provider package ------------
 // import 'dart:async';
 
 // import 'package:flutter/material.dart';
@@ -36,31 +37,23 @@
 //   Widget build(BuildContext context) {
 //     return ChangeNotifierProvider(
 //       create: (_) => _SliderModel(),
-//       // ..dotPrimaryColor = dotPrimaryColor
-//       // ..dotSecondaryColor = dotSecondaryColor
-//       // ..dotPrimarySize = dotPrimarySize
-//       // ..dotSecondarySize = dotSecondarySize,
 //       child: SafeArea(
 //         child: Center(
 //           child: Builder(
 //             builder: (BuildContext context) {
-//               Provider.of<_SliderModel>(context).dotPrimaryColor =
-//                   dotPrimaryColor;
-//               Provider.of<_SliderModel>(context).dotSecondaryColor =
-//                   dotSecondaryColor;
-//               Provider.of<_SliderModel>(context).dotPrimarySize =
-//                   dotPrimarySize;
-//               Provider.of<_SliderModel>(context).dotSecondarySize =
-//                   dotSecondarySize;
-//               Provider.of<_SliderModel>(context).dotsUp = dotsUp;
-//               Provider.of<_SliderModel>(context).autoMove = autoMoveConfig.loop;
-//               Provider.of<_SliderModel>(context).autoMoveDuration =
-//                   autoMoveConfig.duration;
+//               // Provider.of<_SliderModel>(context).dotsUp = dotsUp;
+//               final model = Provider.of<_SliderModel>(context);
+//               model.dotsUp = dotsUp;
+//               model.dotPrimaryColor = dotPrimaryColor;
+//               model.dotSecondaryColor = dotSecondaryColor;
+//               model.dotPrimarySize = dotPrimarySize;
+//               model.dotSecondarySize = dotSecondarySize;
+//               model.autoMove = autoMoveConfig.loop;
+//               model.autoMoveDuration = autoMoveConfig.duration;
 
 //               return _CreateSlideShowStructure(slides: slides);
 //             },
 //           ),
-//           // child: _CreateSlideShowStructure(slides: slides),
 //         ),
 //       ),
 //     );
@@ -256,9 +249,57 @@
 //   }
 // }
 
-// -------------------------------------------------------
+// way 2: no change active dot size and color and error changing dotup ------------
 // import 'dart:async';
 // import 'package:flutter/material.dart';
+
+// class _SliderModel with ChangeNotifier {
+//   double _currentPage = 0.0;
+//   bool dotsUp = false;
+//   Color dotPrimaryColor = Colors.blue;
+//   Color dotSecondaryColor = Colors.grey;
+//   double dotPrimarySize = 12;
+//   double dotSecondarySize = 12;
+//   bool autoMove = false;
+//   Duration autoMoveDuration = const Duration(seconds: 2);
+
+//   double get currentPage => _currentPage;
+//   set currentPage(double currentPage) {
+//     _currentPage = currentPage;
+//     notifyListeners();
+//   }
+// }
+
+// class _SliderModelInheritedWidget extends InheritedWidget {
+//   final _SliderModel model;
+
+//   const _SliderModelInheritedWidget({
+//     required this.model,
+//     required super.child,
+//   });
+
+//   static _SliderModelInheritedWidget of(BuildContext context) {
+//     final _SliderModelInheritedWidget? result =
+//         context
+//             .dependOnInheritedWidgetOfExactType<_SliderModelInheritedWidget>();
+//     assert(result != null, 'No _SliderModelInheritedWidget found in context');
+//     return result!;
+//   }
+
+//   @override
+//   // bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+//   //   return true; // You can add logic here if you want to update when state changes
+//   // }
+//   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+//     return (oldWidget as _SliderModelInheritedWidget).model != model;
+//   }
+
+//   // bool updateShouldNotify(covariant _SliderModelInheritedWidget oldWidget) {
+//   //   // return (oldWidget as _SliderModelInheritedWidget).model != model;
+//   //   return (oldWidget.model.currentPage != model.currentPage);
+//   //   // return false;
+//   // }
+// }
 
 // class AutoMoveConfig {
 //   final bool loop;
@@ -393,7 +434,7 @@
 // class _SlidesState extends State<_Slides> {
 //   final _pageViewController = PageController();
 //   late Timer _intervalSlider;
-//   int _currentPage2 = 0;
+//   int _currentPage = 0;
 //   late bool _autoMove;
 //   late Duration _autoMoveDuration;
 
@@ -414,21 +455,17 @@
 //     if (!_autoMove) return;
 
 //     _intervalSlider = Timer.periodic(_autoMoveDuration, (timer) {
-//       // print('Before: $_currentPage2');
-//       if (_currentPage2 < widget.slides.length - 1) {
-//         _currentPage2++;
+//       if (_currentPage < widget.slides.length - 1) {
+//         _currentPage++;
 //       } else {
-//         _currentPage2 = 0;
+//         _currentPage = 0;
 //       }
 
 //       _pageViewController.animateToPage(
-//         _currentPage2,
-//         // duration: (_autoMoveDuration * 0.5),
+//         _currentPage,
 //         duration: const Duration(milliseconds: 1000),
 //         curve: Curves.easeInOut,
 //       );
-
-//       // print('After: $_currentPage2');
 //     });
 //   }
 
@@ -441,10 +478,6 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     print(
-//       'HEY => $_currentPage2, ${_SliderModelInheritedWidget.of(context).model.currentPage}',
-//     );
-//     // print('${_pageViewController.page}');
 //     return PageView(
 //       controller: _pageViewController,
 //       children: widget.slides.map((slide) => _Slide(slide)).toList(),
@@ -467,55 +500,7 @@
 //   }
 // }
 
-// class _SliderModel with ChangeNotifier {
-//   double _currentPage = 0.0;
-//   bool dotsUp = false;
-//   Color dotPrimaryColor = Colors.blue;
-//   Color dotSecondaryColor = Colors.grey;
-//   double dotPrimarySize = 12;
-//   double dotSecondarySize = 12;
-//   bool autoMove = false;
-//   Duration autoMoveDuration = const Duration(seconds: 2);
-
-//   double get currentPage => _currentPage;
-//   set currentPage(double currentPage) {
-//     _currentPage = currentPage;
-//     notifyListeners();
-//   }
-// }
-
-// class _SliderModelInheritedWidget extends InheritedWidget {
-//   final _SliderModel model;
-
-//   const _SliderModelInheritedWidget({
-//     required this.model,
-//     required super.child,
-//   });
-
-//   static _SliderModelInheritedWidget of(BuildContext context) {
-//     final _SliderModelInheritedWidget? result =
-//         context
-//             .dependOnInheritedWidgetOfExactType<_SliderModelInheritedWidget>();
-//     assert(result != null, 'No _SliderModelInheritedWidget found in context');
-//     return result!;
-//   }
-
-//   @override
-//   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-//     return true; // You can add logic here if you want to update when state changes
-//   }
-
-//   // bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-//   // return (oldWidget as _SliderModelInheritedWidget).model != model;
-//   // }
-//   // bool updateShouldNotify(covariant _SliderModelInheritedWidget oldWidget) {
-//   //   // return (oldWidget as _SliderModelInheritedWidget).model != model;
-//   //   return (oldWidget.model.currentPage != model.currentPage);
-//   //   // return false;
-//   // }
-// }
-
-// --------------------------------------------------------
+// way 3: work without changes dynamics from call ------------
 // import 'dart:async';
 // import 'package:flutter/material.dart';
 
@@ -553,12 +538,6 @@
 //   // Getters para las otras propiedades (no necesitan setters con notifyListeners
 //   // si solo se establecen una vez al inicio)
 //   bool get dotsUp => _dotsUp;
-//   set dotsUp(bool value) {
-//     if (_dotsUp == value) return;
-//     _dotsUp = value;
-//     notifyListeners();
-//   }
-
 //   Color get dotPrimaryColor => _dotPrimaryColor;
 //   Color get dotSecondaryColor => _dotSecondaryColor;
 //   double get dotPrimarySize => _dotPrimarySize;
@@ -866,7 +845,7 @@
 //   }
 // }
 
-// --------------------------------------------------------
+// way 4: work with changes dynamics from call ------------
 import 'dart:async';
 import 'package:flutter/material.dart';
 
@@ -891,30 +870,6 @@ class _SliderModel with ChangeNotifier {
   double _dotSecondarySize = 12;
   bool _autoMove = false;
   Duration _autoMoveDuration = const Duration(seconds: 2);
-
-  // Método para inicializar/actualizar las propiedades de configuración
-  void updateConfig({
-    required bool dotsUp,
-    required Color dotPrimaryColor,
-    required Color dotSecondaryColor,
-    required double dotPrimarySize,
-    required double dotSecondarySize,
-    required bool autoMove,
-    required Duration autoMoveDuration,
-  }) {
-    _dotsUp = dotsUp;
-    _dotPrimaryColor = dotPrimaryColor;
-    _dotSecondaryColor = dotSecondaryColor;
-    _dotPrimarySize = dotPrimarySize;
-    _dotSecondarySize = dotSecondarySize;
-    _autoMove = autoMove;
-    _autoMoveDuration = autoMoveDuration;
-    // No se necesita notifyListeners() aquí si estos valores
-    // solo se leen una vez o no cambian después de la inicialización.
-    // Si pudieran cambiar dinámicamente y afectar la UI,
-    // se debería llamar a notifyListeners() o gestionar su actualización
-    // de forma más específica.
-  }
 
   // Necesitarás una forma de actualizar autoMove y su duración también
   void updateAutoMove(AutoMoveConfig config) {
