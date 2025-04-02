@@ -102,16 +102,34 @@ class _PinterestMenuButton extends StatelessWidget {
     final isSelectedItem = selectedItem == index;
 
     // way 1
+    // return IconButton(
+    //   // onPressed: () => menuItem.onPressed(),
+    //   onPressed: () {
+    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     menuItem.onPressed();
+    //   },
+    //   icon: Icon(
+    //     menuItem.icon,
+    //     color: isSelectedItem ? Colors.black : Colors.blueGrey,
+    //     size: isSelectedItem ? 35 : 25,
+    //   ),
+    // );
+
     return IconButton(
-      // onPressed: () => menuItem.onPressed(),
       onPressed: () {
         Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
         menuItem.onPressed();
       },
-      icon: Icon(
-        menuItem.icon,
-        size: isSelectedItem ? 35 : 25,
-        color: isSelectedItem ? Colors.black : Colors.blueGrey,
+      icon: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        width: isSelectedItem ? 35 : 25,
+        height: isSelectedItem ? 35 : 25,
+        child: Icon(
+          menuItem.icon,
+          size: isSelectedItem ? 35 : 25,
+          color: isSelectedItem ? Colors.black : Colors.blueGrey,
+        ),
       ),
     );
 
@@ -125,6 +143,25 @@ class _PinterestMenuButton extends StatelessWidget {
     //   // for some old devices
     //   behavior: HitTestBehavior.translucent,
     //   child: SizedBox(
+    //     child: Icon(
+    //       menuItem.icon,
+    //       size: isSelectedItem ? 35 : 25,
+    //       color: isSelectedItem ? Colors.black : Colors.blueGrey,
+    //     ),
+    //   ),
+    // );
+
+    // return GestureDetector(
+    //   onTap: () {
+    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     menuItem.onPressed();
+    //   },
+    //   behavior: HitTestBehavior.translucent,
+    //   child: AnimatedContainer(
+    //     duration: const Duration(milliseconds: 250),
+    //     curve: Curves.easeInOut,
+    //     width: isSelectedItem ? 35 : 25,
+    //     height: isSelectedItem ? 35 : 25,
     //     child: Icon(
     //       menuItem.icon,
     //       size: isSelectedItem ? 35 : 25,
