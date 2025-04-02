@@ -71,34 +71,6 @@ class _PinterestMenuBackground extends StatelessWidget {
         ],
       ),
       child: child,
-
-      // width: 220,
-      // height: 60,
-      // padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-      // decoration: BoxDecoration(
-      //   color: Colors.white,
-      //   borderRadius: BorderRadius.circular(30),
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.black.withValues(alpha: 0.3),
-      //       offset: const Offset(0, 0),
-      //       blurRadius: 10,
-      //     ),
-      //   ],
-      // ),
-      // child: Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   // Por cada item en el listado de opciones de menú, generar un IconButton con el icono y callback deinido para ese item
-      //   children:
-      //       items
-      //           .map(
-      //             (item) => IconButton(
-      //               onPressed: () => item.onPressed(),
-      //               icon: Icon(item.icon, color: Colors.grey[700]),
-      //             ),
-      //           )
-      //           .toList(),
-      // ),
     );
   }
 }
@@ -128,26 +100,38 @@ class _PinterestMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedItem = Provider.of<_MenuModel>(context).selectedIndex;
     final isSelectedItem = selectedItem == index;
-    // return IconButton(
-    //   onPressed: () => menuItem.onPressed(),
-    //   icon: Icon(menuItem.icon, color: Colors.grey[700]),
-    // );
-    return GestureDetector(
-      onTap: () {
-        // important listen: false indoor method
+
+    // way 1
+    return IconButton(
+      // onPressed: () => menuItem.onPressed(),
+      onPressed: () {
         Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
         menuItem.onPressed();
       },
-      // for some old devices
-      behavior: HitTestBehavior.translucent,
-      child: SizedBox(
-        child: Icon(
-          menuItem.icon,
-          size: isSelectedItem ? 35 : 25,
-          color: isSelectedItem ? Colors.black : Colors.blueGrey,
-        ),
+      icon: Icon(
+        menuItem.icon,
+        size: isSelectedItem ? 35 : 25,
+        color: isSelectedItem ? Colors.black : Colors.blueGrey,
       ),
     );
+
+    // way 2
+    // return GestureDetector(
+    //   onTap: () {
+    //     // important listen: false indoor method
+    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     menuItem.onPressed();
+    //   },
+    //   // for some old devices
+    //   behavior: HitTestBehavior.translucent,
+    //   child: SizedBox(
+    //     child: Icon(
+    //       menuItem.icon,
+    //       size: isSelectedItem ? 35 : 25,
+    //       color: isSelectedItem ? Colors.black : Colors.blueGrey,
+    //     ),
+    //   ),
+    // );
   }
 }
 
