@@ -44,7 +44,7 @@ class PinterestMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => _MenuModel(),
+      create: (_) => _OptionsMenuModel(),
       child: AnimatedOpacity(
         opacity: showMenu ? 1 : 0,
         duration: const Duration(milliseconds: 500),
@@ -52,7 +52,7 @@ class PinterestMenu extends StatelessWidget {
         // child: _PinterestMenuBackground(child: _MenuItems(menuItems: items)),
         child: IgnorePointer(
           ignoring: !showMenu,
-          child: _PinterestMenuBackground(child: _MenuItems(menuItems: items)),
+          child: _PinterestMenuBackground(child: _MenuItems(items)),
         ),
       ),
     );
@@ -88,7 +88,7 @@ class _PinterestMenuBackground extends StatelessWidget {
 
 class _MenuItems extends StatelessWidget {
   final List<PinterestButton> menuItems;
-  const _MenuItems({required this.menuItems});
+  const _MenuItems(this.menuItems);
 
   @override
   Widget build(BuildContext context) {
@@ -109,14 +109,14 @@ class _PinterestMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedItem = Provider.of<_MenuModel>(context).selectedIndex;
+    final selectedItem = Provider.of<_OptionsMenuModel>(context).selectedIndex;
     final isSelectedItem = selectedItem == index;
 
     // way 1
     // return IconButton(
     //   // onPressed: () => menuItem.onPressed(),
     //   onPressed: () {
-    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     Provider.of<_OptionsMenuModel>(context, listen: false).selectedIndex = index;
     //     menuItem.onPressed();
     //   },
     //   icon: Icon(
@@ -128,7 +128,8 @@ class _PinterestMenuButton extends StatelessWidget {
 
     return IconButton(
       onPressed: () {
-        Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+        Provider.of<_OptionsMenuModel>(context, listen: false).selectedIndex =
+            index;
         menuItem.onPressed();
       },
       icon: AnimatedContainer(
@@ -148,7 +149,7 @@ class _PinterestMenuButton extends StatelessWidget {
     // return GestureDetector(
     //   onTap: () {
     //     // important listen: false indoor method
-    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     Provider.of<_OptionsMenuModel>(context, listen: false).selectedIndex = index;
     //     menuItem.onPressed();
     //   },
     //   // for some old devices
@@ -164,7 +165,7 @@ class _PinterestMenuButton extends StatelessWidget {
 
     // return GestureDetector(
     //   onTap: () {
-    //     Provider.of<_MenuModel>(context, listen: false).selectedIndex = index;
+    //     Provider.of<_OptionsMenuModel>(context, listen: false).selectedIndex = index;
     //     menuItem.onPressed();
     //   },
     //   behavior: HitTestBehavior.translucent,
@@ -183,7 +184,7 @@ class _PinterestMenuButton extends StatelessWidget {
   }
 }
 
-class _MenuModel with ChangeNotifier {
+class _OptionsMenuModel with ChangeNotifier {
   int _selectedIndex = 0;
 
   int get selectedIndex => _selectedIndex;

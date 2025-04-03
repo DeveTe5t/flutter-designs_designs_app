@@ -74,13 +74,10 @@ class _PinterestGridState extends State<PinterestGrid> {
   void initState() {
     super.initState();
 
-    // final showMenu = Provider.of<_MenuModel>(context).showMenu;
     controller.addListener(() {
       if (controller.offset > beforeScroll) {
-        // print('Hide menu: ${controller.offset}');
         Provider.of<_MenuModel>(context, listen: false).showMenu = false;
       } else {
-        // print('show menu: ${controller.offset}');
         // how when pull refresh or like a scroll to top and more
         if (controller.offset <= 0) return;
         Provider.of<_MenuModel>(context, listen: false).showMenu = true;
@@ -170,28 +167,28 @@ class _PinterestGridState extends State<PinterestGrid> {
   }
 }
 
-class _Tile extends StatelessWidget {
-  const _Tile({required this.index, required this.extent});
-  final int index;
-  final double extent;
+// class _Tile extends StatelessWidget {
+//   const _Tile({required this.index, required this.extent});
+//   final int index;
+//   final double extent;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: extent,
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-      ),
-      child: Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Text('$index'),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: extent,
+//       decoration: const BoxDecoration(
+//         color: Colors.blue,
+//         borderRadius: BorderRadius.all(Radius.circular(30)),
+//       ),
+//       child: Center(
+//         child: CircleAvatar(
+//           backgroundColor: Colors.white,
+//           child: Text('$index'),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class _PinterestItem extends StatelessWidget {
   final int index;
@@ -215,31 +212,31 @@ class _PinterestItem extends StatelessWidget {
   }
 }
 
-class _PinterestItem2 extends StatelessWidget {
-  final int index;
-  const _PinterestItem2({required this.index});
+// class _PinterestItem2 extends StatelessWidget {
+//   final int index;
+//   const _PinterestItem2({required this.index});
 
-  @override
-  Widget build(BuildContext context) {
-    return StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: index.isEven ? 2 : 3,
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-        ),
-        child: Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Text('$index'),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return StaggeredGridTile.count(
+//       crossAxisCellCount: 2,
+//       mainAxisCellCount: index.isEven ? 2 : 3,
+//       child: Container(
+//         margin: const EdgeInsets.all(5),
+//         decoration: const BoxDecoration(
+//           color: Colors.blue,
+//           borderRadius: BorderRadius.all(Radius.circular(30)),
+//         ),
+//         child: Center(
+//           child: CircleAvatar(
+//             backgroundColor: Colors.white,
+//             child: Text('$index'),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class _MenuModel with ChangeNotifier {
   bool _showMenu = true;
