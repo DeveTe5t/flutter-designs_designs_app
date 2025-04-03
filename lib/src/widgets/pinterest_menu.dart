@@ -10,6 +10,10 @@ class PinterestButton {
 }
 
 class PinterestMenu extends StatelessWidget {
+  final bool showMenu;
+
+  PinterestMenu({super.key, this.showMenu = true});
+
   final List<PinterestButton> items = [
     PinterestButton(
       onPressed: () {
@@ -37,13 +41,20 @@ class PinterestMenu extends StatelessWidget {
     ),
   ];
 
-  PinterestMenu({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _MenuModel(),
-      child: _PinterestMenuBackground(child: _MenuItems(menuItems: items)),
+      child: AnimatedOpacity(
+        opacity: showMenu ? 1 : 0,
+        duration: const Duration(milliseconds: 500),
+        // curve: Curves.easeInOut,
+        // child: _PinterestMenuBackground(child: _MenuItems(menuItems: items)),
+        child: IgnorePointer(
+          ignoring: !showMenu,
+          child: _PinterestMenuBackground(child: _MenuItems(menuItems: items)),
+        ),
+      ),
     );
   }
 }
