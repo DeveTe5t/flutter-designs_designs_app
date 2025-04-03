@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '/src/widgets/pinterest_menu.dart';
@@ -11,19 +12,22 @@ class PinterestPage extends StatelessWidget {
     return SafeArea(
       top: false,
       bottom: false,
-      child: Scaffold(
-        // body: PinterestGrid(),
-        // body: PinterestMenu(),
-        body: Stack(
-          // way 1:
-          alignment: Alignment.center,
-          children: [
-            const PinterestGrid(),
+      child: ChangeNotifierProvider(
+        create: (_) => _MenuModel(),
+        child: Scaffold(
+          // body: PinterestGrid(),
+          // body: PinterestMenu(),
+          body: Stack(
             // way 1:
-            _PinterestMenuLocation(),
-            // way 2:
-            // _PinterestMenuLocation2(),
-          ],
+            alignment: Alignment.center,
+            children: [
+              const PinterestGrid(),
+              // way 1:
+              _PinterestMenuLocation(),
+              // way 2:
+              // _PinterestMenuLocation2(),
+            ],
+          ),
         ),
       ),
     );
@@ -33,10 +37,11 @@ class PinterestPage extends StatelessWidget {
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final showMenu = Provider.of<_MenuModel>(context).showMenu;
     return Positioned(
       // bottom: 0,
       bottom: 30,
-      child: PinterestMenu(),
+      child: PinterestMenu(showMenu: showMenu),
     );
   }
 }
@@ -53,18 +58,52 @@ class _PinterestMenuLocation extends StatelessWidget {
 //   }
 // }
 
-class PinterestGrid extends StatelessWidget {
+class PinterestGrid extends StatefulWidget {
   const PinterestGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<int> items = List.generate(200, (index) => index);
+  State<PinterestGrid> createState() => _PinterestGridState();
+}
 
+class _PinterestGridState extends State<PinterestGrid> {
+  final List<int> items = List.generate(200, (index) => index);
+  ScrollController controller = ScrollController();
+  double beforeScroll = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // final showMenu = Provider.of<_MenuModel>(context).showMenu;
+    controller.addListener(() {
+      if (controller.offset > beforeScroll) {
+        // print('Hide menu: ${controller.offset}');
+        Provider.of<_MenuModel>(context, listen: false).showMenu = false;
+      } else {
+        // print('show menu: ${controller.offset}');
+        // how when pull refresh or like a scroll to top and more
+        if (controller.offset <= 0) return;
+        Provider.of<_MenuModel>(context, listen: false).showMenu = true;
+      }
+
+      beforeScroll = controller.offset;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // ********** With package
     //------- Solution 1
     // return Container(
     //   padding: const EdgeInsets.symmetric(horizontal: 20),
     //   child: MasonryGridView.count(
+    //     controller: controller,
     //     crossAxisCount: 2,
     //     mainAxisSpacing: 4,
     //     crossAxisSpacing: 4,
@@ -78,6 +117,7 @@ class PinterestGrid extends StatelessWidget {
 
     //------- Solution 2
     // return SingleChildScrollView(
+    //   controller: controller,
     //   child: StaggeredGrid.count(
     //     crossAxisCount: 4,
     //     mainAxisSpacing: 4,
@@ -92,6 +132,7 @@ class PinterestGrid extends StatelessWidget {
     // ********** Without package
     //------- Solution 3
     // return GridView.custom(
+    //   controller: controller,
     //   padding: const EdgeInsets.symmetric(horizontal: 10),
     //   gridDelegate: SliverWovenGridDelegate.count(
     //     crossAxisCount: 2,
@@ -112,6 +153,7 @@ class PinterestGrid extends StatelessWidget {
 
     //------- Solution 4
     return GridView.custom(
+      controller: controller,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       gridDelegate: SliverQuiltedGridDelegate(
         crossAxisCount: 4,
@@ -196,5 +238,15 @@ class _PinterestItem2 extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _MenuModel with ChangeNotifier {
+  bool _showMenu = true;
+
+  bool get showMenu => _showMenu;
+  set showMenu(bool value) {
+    _showMenu = value;
+    notifyListeners();
   }
 }
