@@ -41,7 +41,38 @@ class _PinterestMenuLocation extends StatelessWidget {
     return Positioned(
       // bottom: 0,
       bottom: 30,
-      child: PinterestMenu(showMenu: showMenu),
+      child: PinterestMenu(
+        showMenu: showMenu,
+        // backgroundColor: Colors.yellow,
+        // activeColor: Colors.deepPurple,
+        // inactiveColor: Colors.brown,
+        items: [
+          PinterestButton(
+            onPressed: () {
+              print('Icon Pie_chart ');
+            },
+            icon: Icons.pie_chart,
+          ),
+          PinterestButton(
+            onPressed: () {
+              print('Icon Search ');
+            },
+            icon: Icons.search,
+          ),
+          PinterestButton(
+            onPressed: () {
+              print('Icon Notifications ');
+            },
+            icon: Icons.notifications,
+          ),
+          PinterestButton(
+            onPressed: () {
+              print('Icon Supervised_user_circle ');
+            },
+            icon: Icons.supervised_user_circle,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -75,11 +106,12 @@ class _PinterestGridState extends State<PinterestGrid> {
     super.initState();
 
     controller.addListener(() {
-      if (controller.offset > beforeScroll) {
+      // if (controller.offset > beforeScroll) {
+      if (controller.offset > beforeScroll && controller.offset >= 50) {
         Provider.of<_MenuModel>(context, listen: false).showMenu = false;
       } else {
         // how when pull refresh or like a scroll to top and more
-        if (controller.offset <= 0) return;
+        // if (controller.offset <= 0) return;
         Provider.of<_MenuModel>(context, listen: false).showMenu = true;
       }
 
@@ -243,6 +275,7 @@ class _MenuModel with ChangeNotifier {
 
   bool get showMenu => _showMenu;
   set showMenu(bool value) {
+    if (_showMenu == value) return;
     _showMenu = value;
     notifyListeners();
   }
