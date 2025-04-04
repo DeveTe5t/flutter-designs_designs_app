@@ -43,7 +43,7 @@ class _PinterestMenuLocation extends StatelessWidget {
       bottom: 30,
       child: PinterestMenu(
         showMenu: showMenu,
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.green,
         activeColor: Colors.white,
         inactiveColor: Colors.black87,
         items: [
