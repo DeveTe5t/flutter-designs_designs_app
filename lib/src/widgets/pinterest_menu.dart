@@ -521,7 +521,6 @@ class _OptionsMenuModel with ChangeNotifier {
 
 class _PinterestMenuNotifier extends InheritedNotifier<_OptionsMenuModel> {
   const _PinterestMenuNotifier({
-    super.key,
     required _OptionsMenuModel model,
     required super.child,
   }) : super(notifier: model);
