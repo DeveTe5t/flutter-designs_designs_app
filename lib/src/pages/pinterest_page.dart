@@ -283,7 +283,6 @@
 
 // way 2: without packages ------------
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '/src/widgets/pinterest_menu.dart';
