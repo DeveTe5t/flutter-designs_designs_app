@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 // import '/src/widgets/headers.dart';
 // import '/src/pages/circle_graphic_page.dart';
 // import 'src/labs/slide_show_page.dart';
-import 'src/pages/slide_show_page.dart';
-// import '/src/pages/pinterest_page.dart';
+// import 'src/pages/slide_show_page.dart';
+import '/src/pages/pinterest_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
       ),
-      home: const SlideShowPage(),
-      // home: const PinterestPage(),
+      // home: const SlideShowPage(),
+      home: const PinterestPage(),
     );
   }
 }
