@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SquareHeader extends StatelessWidget {
   const SquareHeader({super.key});
@@ -388,5 +389,70 @@ class _HeaderWaveGradientPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+// ------------ For emergency page
+class IconHeader extends StatelessWidget {
+  const IconHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final whiteColor = Colors.white.withValues(alpha: 0.7);
+
+    return Stack(
+      children: [
+        const _IconHeaderBackground(),
+        Positioned(
+          top: -50,
+          left: -70,
+          child: FaIcon(
+            FontAwesomeIcons.plus,
+            size: 250,
+            color: Colors.white.withValues(alpha: 0.2),
+          ),
+        ),
+        Column(
+          spacing: 20,
+          children: [
+            // double.infinity to fill the width and then center the content
+            const SizedBox(height: 80, width: double.infinity),
+            Text(
+              'You have requested',
+              style: TextStyle(fontSize: 20, color: whiteColor),
+            ),
+            Text(
+              'Medical assistence',
+              style: TextStyle(
+                fontSize: 25,
+                color: whiteColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _IconHeaderBackground extends StatelessWidget {
+  const _IconHeaderBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[Color(0xff526BF6), Color(0xff67ACF2)],
+        ),
+      ),
+    );
   }
 }
