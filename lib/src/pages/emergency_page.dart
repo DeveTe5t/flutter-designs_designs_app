@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '/src/widgets/headers.dart';
 
 class EmergencyPage extends StatelessWidget {
@@ -6,6 +8,16 @@ class EmergencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: IconHeader());
+    return const Scaffold(
+      body: IconHeader(
+        icon: FontAwesomeIcons.plus,
+        title: 'Medical assistence',
+        subTitle: 'You have requested',
+        backgroundColor1: Colors.deepPurple,
+        backgroundColor2: Colors.blue,
+        beginGradient: Alignment.topCenter,
+        endGradient: Alignment.bottomCenter,
+      ),
+    );
   }
 }

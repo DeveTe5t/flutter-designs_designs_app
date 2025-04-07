@@ -394,7 +394,26 @@ class _HeaderWaveGradientPainter extends CustomPainter {
 
 // ------------ For emergency page
 class IconHeader extends StatelessWidget {
-  const IconHeader({super.key});
+  final IconData icon;
+  final String title;
+  final String subTitle;
+  final Color backgroundColor1;
+  final Color backgroundColor2;
+  final AlignmentGeometry beginGradient;
+  final AlignmentGeometry endGradient;
+
+  const IconHeader({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subTitle,
+    // this.backgroundColor1 = const Color(0xff526BF6),
+    // this.backgroundColor2 = const Color(0xff67ACF2),
+    this.backgroundColor1 = Colors.deepPurple,
+    this.backgroundColor2 = Colors.blue,
+    this.beginGradient = Alignment.topCenter,
+    this.endGradient = Alignment.bottomCenter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -402,12 +421,17 @@ class IconHeader extends StatelessWidget {
 
     return Stack(
       children: [
-        const _IconHeaderBackground(),
+        _IconHeaderBackground(
+          backgroundColor1: backgroundColor1,
+          backgroundColor2: backgroundColor2,
+          beginGradient: beginGradient,
+          endGradient: endGradient,
+        ),
         Positioned(
           top: -50,
           left: -70,
           child: FaIcon(
-            FontAwesomeIcons.plus,
+            icon,
             size: 250,
             color: Colors.white.withValues(alpha: 0.2),
           ),
@@ -417,19 +441,16 @@ class IconHeader extends StatelessWidget {
           children: [
             // double.infinity to fill the width and then center the content
             const SizedBox(height: 80, width: double.infinity),
+            Text(subTitle, style: TextStyle(fontSize: 20, color: whiteColor)),
             Text(
-              'You have requested',
-              style: TextStyle(fontSize: 20, color: whiteColor),
-            ),
-            Text(
-              'Medical assistence',
+              title,
               style: TextStyle(
                 fontSize: 25,
                 color: whiteColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white),
+            FaIcon(icon, size: 80, color: Colors.white),
           ],
         ),
       ],
@@ -438,19 +459,28 @@ class IconHeader extends StatelessWidget {
 }
 
 class _IconHeaderBackground extends StatelessWidget {
-  const _IconHeaderBackground();
+  final Color backgroundColor1;
+  final Color backgroundColor2;
+  final AlignmentGeometry beginGradient;
+  final AlignmentGeometry endGradient;
+  const _IconHeaderBackground({
+    required this.backgroundColor1,
+    required this.backgroundColor2,
+    required this.beginGradient,
+    required this.endGradient,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 300,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(80)),
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xff526BF6), Color(0xff67ACF2)],
+          begin: beginGradient,
+          end: endGradient,
+          colors: <Color>[backgroundColor1, backgroundColor2],
         ),
       ),
     );
