@@ -283,7 +283,7 @@
 
 // way 2: without packages ------------
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '/src/widgets/pinterest_menu.dart';
@@ -299,16 +299,60 @@ class _MenuModel with ChangeNotifier {
   }
 }
 
-class PinterestPage extends StatelessWidget {
+class _PinterestPageNotifier extends InheritedNotifier<_MenuModel> {
+  const _PinterestPageNotifier({
+    required _MenuModel model,
+    required super.child,
+  }) : super(notifier: model);
+
+  static _MenuModel watch(BuildContext context) {
+    final notifier =
+        context
+            .dependOnInheritedWidgetOfExactType<_PinterestPageNotifier>()
+            ?.notifier;
+    assert(notifier != null, 'No _PinterestPageNotifier found in context');
+    return notifier!;
+  }
+
+  static _MenuModel read(BuildContext context) {
+    final widget =
+        context
+            .getElementForInheritedWidgetOfExactType<_PinterestPageNotifier>()
+            ?.widget;
+    assert(widget != null, 'No _PinterestPageNotifier found in context');
+    return (widget as _PinterestPageNotifier).notifier!;
+  }
+}
+
+class PinterestPage extends StatefulWidget {
   const PinterestPage({super.key});
+
+  @override
+  State<PinterestPage> createState() => _PinterestPageState();
+}
+
+class _PinterestPageState extends State<PinterestPage> {
+  late _MenuModel _menuModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _menuModel = _MenuModel();
+  }
+
+  @override
+  void dispose() {
+    _menuModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       bottom: false,
-      child: ChangeNotifierProvider(
-        create: (_) => _MenuModel(),
+      child: _PinterestPageNotifier(
+        model: _menuModel,
         child: Scaffold(
           // body: PinterestGrid(),
           // body: PinterestMenu(),
@@ -332,7 +376,8 @@ class PinterestPage extends StatelessWidget {
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final showMenu = Provider.of<_MenuModel>(context).showMenu;
+    final showMenu = _PinterestPageNotifier.watch(context).showMenu;
+
     return Positioned(
       // bottom: 0,
       bottom: 30,
@@ -403,11 +448,11 @@ class _PinterestGridState extends State<PinterestGrid> {
     controller.addListener(() {
       // if (controller.offset > beforeScroll) {
       if (controller.offset > beforeScroll && controller.offset >= 50) {
-        Provider.of<_MenuModel>(context, listen: false).showMenu = false;
+        _PinterestPageNotifier.read(context).showMenu = false;
       } else {
         // how when pull refresh or like a scroll to top and more
         // if (controller.offset <= 0) return;
-        Provider.of<_MenuModel>(context, listen: false).showMenu = true;
+        _PinterestPageNotifier.read(context).showMenu = true;
       }
 
       beforeScroll = controller.offset;
