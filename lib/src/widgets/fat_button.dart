@@ -34,8 +34,8 @@ class FatButton extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 140, width: 40),
-              // FaIcon(FontAwesomeIcons.carBurst, size: 40, color: Colors.white),
+              // const SizedBox(height: 140, width: 40),
+              const SizedBox(height: 120, width: 40),
               FaIcon(icon, size: 40, color: Colors.white),
               const SizedBox(width: 20),
               Expanded(
@@ -70,7 +70,8 @@ class _FatButtonBackground extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 100,
-      margin: const EdgeInsets.all(20),
+      // margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -95,7 +96,6 @@ class _FatButtonBackground extends StatelessWidget {
               right: -20,
               top: -20,
               child: FaIcon(
-                // FontAwesomeIcons.carBurst,
                 icon,
                 size: 150,
                 color: Colors.white.withValues(alpha: 0.2),
