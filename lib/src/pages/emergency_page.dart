@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:animate_do/animate_do.dart';
 
 import '/src/widgets/headers.dart';
 import '/src/widgets/fat_button.dart';
@@ -148,12 +149,14 @@ class EmergencyPage extends StatelessWidget {
     List<Widget> itemMap =
         items
             .map(
-              (item) => FatButton(
-                icon: item.icon,
-                title: item.text,
-                backgroundColor1: item.color1,
-                backgroundColor2: item.color2,
-                onPressed: item.onPressed,
+              (item) => FadeInLeft(
+                child: FatButton(
+                  icon: item.icon,
+                  title: item.text,
+                  backgroundColor1: item.color1,
+                  backgroundColor2: item.color2,
+                  onPressed: item.onPressed,
+                ),
               ),
             )
             .toList();
@@ -228,22 +231,22 @@ class EmergencyPage extends StatelessWidget {
   }
 }
 
-class FatButtonTemp extends StatelessWidget {
-  const FatButtonTemp({super.key});
+// class FatButtonTemp extends StatelessWidget {
+//   const FatButtonTemp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return FatButton(
-      // icon: FontAwesomeIcons.carBurst,
-      title: 'Motor Accident',
-      backgroundColor1: Colors.blue,
-      backgroundColor2: Colors.deepPurple,
-      onPressed: () {
-        print('hey');
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FatButton(
+//       // icon: FontAwesomeIcons.carBurst,
+//       title: 'Motor Accident',
+//       backgroundColor1: Colors.blue,
+//       backgroundColor2: Colors.deepPurple,
+//       onPressed: () {
+//         print('hey');
+//       },
+//     );
+//   }
+// }
 
 class PageHeader extends StatelessWidget {
   const PageHeader({super.key});
