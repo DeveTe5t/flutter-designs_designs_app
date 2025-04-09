@@ -9,8 +9,9 @@ class _ItemButton {
   final String text;
   final Color color1;
   final Color color2;
+  final VoidCallback onPressed;
 
-  _ItemButton(this.icon, this.text, this.color1, this.color2);
+  _ItemButton(this.icon, this.text, this.color1, this.color2, this.onPressed);
 }
 
 class EmergencyPage extends StatelessWidget {
@@ -39,72 +40,108 @@ class EmergencyPage extends StatelessWidget {
         'Motor Accident',
         const Color(0xff6989F5),
         const Color(0xff906EF5),
+        () {
+          print('Hey: Motor Accident');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.plus,
         'Medical Emergency',
         const Color(0xff66A9F2),
         const Color(0xff536CF6),
+        () {
+          print('Hey: Medical Emergency');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.masksTheater,
         'Theft / Harrasement',
         const Color(0xffF2D572),
         const Color(0xffE06AA3),
+        () {
+          print('Hey: Theft / Harrasement');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.personBiking,
         'Awards',
         const Color(0xff317183),
         const Color(0xff46997D),
+        () {
+          print('Hey: Awards');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.carBurst,
         'Motor Accident',
         const Color(0xff6989F5),
         const Color(0xff906EF5),
+        () {
+          print('Hey: Motor Accident');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.plus,
         'Medical Emergency',
         const Color(0xff66A9F2),
         const Color(0xff536CF6),
+        () {
+          print('Hey: Medical Emergency');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.masksTheater,
         'Theft / Harrasement',
         const Color(0xffF2D572),
         const Color(0xffE06AA3),
+        () {
+          print('Hey: Theft / Harrasement');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.personBiking,
         'Awards',
         const Color(0xff317183),
         const Color(0xff46997D),
+        () {
+          print('Hey: Awards');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.carBurst,
         'Motor Accident',
         const Color(0xff6989F5),
         const Color(0xff906EF5),
+        () {
+          print('Hey: Motor Accident');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.plus,
         'Medical Emergency',
         const Color(0xff66A9F2),
         const Color(0xff536CF6),
+        () {
+          print('Hey: Medical Emergency');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.masksTheater,
         'Theft / Harrasement',
         const Color(0xffF2D572),
         const Color(0xffE06AA3),
+        () {
+          print('Hey: Theft / Harrasement');
+        },
       ),
       _ItemButton(
         FontAwesomeIcons.personBiking,
         'Awards',
         const Color(0xff317183),
         const Color(0xff46997D),
+        () {
+          print('Hey: Awards');
+        },
       ),
     ];
 
@@ -116,132 +153,69 @@ class EmergencyPage extends StatelessWidget {
                 title: item.text,
                 backgroundColor1: item.color1,
                 backgroundColor2: item.color2,
-                onPressed: () {
-                  print('hey');
-                },
+                onPressed: item.onPressed,
               ),
             )
             .toList();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // way 1: it can be better, not seems work in horizantal screen
-          // Container(
-          //   margin: const EdgeInsets.only(top: 240),
-          //   child: ListView(
-          //     children: const [
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //     ],
-          //   ),
-          // ),
-          // way 2: better to way 1 and similar to way 3 but more explicit
-          // in horizontal screen, it start behind the icon header
-          // Positioned(
-          //   top: 240,
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   child: ListView(
-          //     children: const [
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //       FatButtonTemp(),
-          //     ],
-          //   ),
-          // ),
-          // way 3: a little better than way 2
-          ListView(
-            // Space by real height IconHeader
-            padding: const EdgeInsets.only(top: 300),
-            // children: const [
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            //   FatButtonTemp(),
-            // ],
-            children: itemMap,
+      // body: Stack(
+      //   children: [
+      //     // way 1: it can be better, not seems work in horizantal screen
+      //     // bacause add currentOrientation
+      //     // Container(
+      //     //   margin: EdgeInsets.only(
+      //     //     top: currentOrientation == Orientation.portrait ? 240 : 300,
+      //     //   ),
+      //     //   child: ListView(children: itemMap),
+      //     // ),
+      //     // way 2: better to way 1 and similar to way 3 but more explicit
+      //     // in horizontal screen, it start behind the icon header
+      //     // Positioned(
+      //     //   top: currentOrientation == Orientation.portrait ? 240 : 300,
+      //     //   left: 0,
+      //     //   right: 0,
+      //     //   bottom: 0,
+      //     //   child: ListView(children: itemMap),
+      //     // ),
+      //     // way 3: a little better than way 2
+      //     ListView(
+      //       // Real space height IconHeader
+      //       padding: const EdgeInsets.only(top: 300),
+      //       children: itemMap,
+      //     ),
+      //     const PageHeader(),
+      //   ],
+      // ),
+
+      // way 4: using slivers
+      body: CustomScrollView(
+        slivers: <Widget>[
+          // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
+          SliverAppBar(
+            // Para mantenerlo siempre visible en la parte superior
+            pinned: true,
+            // No flotante para que no reaparezca al hacer scroll hacia arriba
+            floating: false,
+            // expandedHeight: 250.0, // Altura deseada del área del header
+            expandedHeight:
+                currentOrientation == Orientation.portrait
+                    ? 240.0
+                    : 300.0, // Altura deseada del área del header
+            // O el color de fondo que prefieras
+            backgroundColor: Colors.transparent,
+            flexibleSpace: const FlexibleSpaceBar(background: PageHeader()),
           ),
-          const IconHeader(
-            icon: FontAwesomeIcons.plus,
-            title: 'Medical assistence',
-            subTitle: 'You have requested',
-            backgroundColor1: Colors.blueAccent,
-            backgroundColor2: Colors.green,
+          SliverList(
+            delegate: SliverChildBuilderDelegate((
+              BuildContext context,
+              int index,
+            ) {
+              return itemMap[index];
+            }, childCount: itemMap.length),
           ),
         ],
       ),
-
-      // // way 4: using slivers
-      // body: CustomScrollView(
-      //   slivers: <Widget>[
-      //     // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
-      //     SliverAppBar(
-      //       // Para mantenerlo siempre visible en la parte superior
-      //       pinned: true,
-      //       // No flotante para que no reaparezca al hacer scroll hacia arriba
-      //       floating: false,
-      //       // expandedHeight: 250.0, // Altura deseada del área del header
-      //       expandedHeight:
-      //           currentOrientation == Orientation.portrait
-      //               ? 240.0
-      //               : 300.0, // Altura deseada del área del header
-      //       // O el color de fondo que prefieras
-      //       backgroundColor: Colors.transparent,
-      //       flexibleSpace: const FlexibleSpaceBar(
-      //         background: IconHeader(
-      //           icon: FontAwesomeIcons.plus,
-      //           title: 'Medical assistence',
-      //           subTitle: 'You have requested',
-      //           backgroundColor1: Colors.blueAccent,
-      //           backgroundColor2: Colors.green,
-      //         ),
-      //       ),
-      //     ),
-      //     SliverList(
-      //       delegate: SliverChildBuilderDelegate(
-      //         (BuildContext context, int index) {
-      //           // return const FatButtonTemp();
-      //           // return FatButton(
-      //           //   icon: items[index].icon,
-      //           //   title: items[index].texto,
-      //           //   backgroundColor1: items[index].color1,
-      //           //   backgroundColor2: items[index].color2,
-      //           //   onPressed: () {
-      //           //     print('hey');
-      //           //   },
-      //           // );
-      //           return itemMap[index];
-      //         },
-      //         childCount: itemMap.length,
-      //         // childCount: items.length,
-      //         // childCount: 12,
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
@@ -274,6 +248,13 @@ class PageHeader extends StatelessWidget {
       subTitle: 'You have requested',
       backgroundColor1: Colors.deepPurple,
       backgroundColor2: Colors.blue,
+      // backgroundColor1: Colors.blue,
+      // backgroundColor2: Colors.deepPurple,
+
+      // backgroundColor1: Colors.blueAccent,
+      // backgroundColor2: Colors.green,
+      // backgroundColor1: Colors.green,
+      // backgroundColor2: Colors.blueAccent,
       beginGradient: Alignment.topCenter,
       endGradient: Alignment.bottomCenter,
     );
