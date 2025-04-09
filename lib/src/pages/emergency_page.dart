@@ -159,63 +159,71 @@ class EmergencyPage extends StatelessWidget {
             .toList();
 
     return Scaffold(
-      // body: Stack(
-      //   children: [
-      //     // way 1: it can be better, not seems work in horizantal screen
-      //     // bacause add currentOrientation
-      //     // Container(
-      //     //   margin: EdgeInsets.only(
-      //     //     top: currentOrientation == Orientation.portrait ? 240 : 300,
-      //     //   ),
-      //     //   child: ListView(children: itemMap),
-      //     // ),
-      //     // way 2: better to way 1 and similar to way 3 but more explicit
-      //     // in horizontal screen, it start behind the icon header
-      //     // Positioned(
-      //     //   top: currentOrientation == Orientation.portrait ? 240 : 300,
-      //     //   left: 0,
-      //     //   right: 0,
-      //     //   bottom: 0,
-      //     //   child: ListView(children: itemMap),
-      //     // ),
-      //     // way 3: a little better than way 2
-      //     ListView(
-      //       // Real space height IconHeader
-      //       padding: const EdgeInsets.only(top: 300),
-      //       children: itemMap,
-      //     ),
-      //     const PageHeader(),
-      //   ],
-      // ),
-
-      // way 4: using slivers
-      body: CustomScrollView(
-        slivers: <Widget>[
-          // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
-          SliverAppBar(
-            // Para mantenerlo siempre visible en la parte superior
-            pinned: true,
-            // No flotante para que no reaparezca al hacer scroll hacia arriba
-            floating: false,
-            // expandedHeight: 250.0, // Altura deseada del área del header
-            expandedHeight:
-                currentOrientation == Orientation.portrait
-                    ? 240.0
-                    : 300.0, // Altura deseada del área del header
-            // O el color de fondo que prefieras
-            backgroundColor: Colors.transparent,
-            flexibleSpace: const FlexibleSpaceBar(background: PageHeader()),
+      body: Stack(
+        children: [
+          // way 1: it can be better, not seems work in horizantal screen
+          // bacause add currentOrientation
+          // Container(
+          //   margin: EdgeInsets.only(
+          //     top: currentOrientation == Orientation.portrait ? 240 : 300,
+          //   ),
+          //   child: ListView(
+          //     physics: const BouncingScrollPhysics(),
+          //     children: itemMap,
+          //   ),
+          // ),
+          // way 2: better to way 1 and similar to way 3 but more explicit
+          // in horizontal screen, it start behind the icon header
+          // Positioned(
+          //   top: currentOrientation == Orientation.portrait ? 240 : 300,
+          //   left: 0,
+          //   right: 0,
+          //   bottom: 0,
+          //   child: ListView(
+          //     physics: const BouncingScrollPhysics(),
+          //     padding: const EdgeInsets.only(bottom: 40),
+          //     children: itemMap,
+          //   ),
+          // ),
+          // way 3: a little better than way 2
+          ListView(
+            // Real space height IconHeader
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: 300, bottom: 40),
+            children: itemMap,
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((
-              BuildContext context,
-              int index,
-            ) {
-              return itemMap[index];
-            }, childCount: itemMap.length),
-          ),
+          const PageHeader(),
         ],
       ),
+
+      // // way 4: using slivers
+      // body: CustomScrollView(
+      //   slivers: <Widget>[
+      //     // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
+      //     SliverAppBar(
+      //       // Para mantenerlo siempre visible en la parte superior
+      //       pinned: true,
+      //       // No flotante para que no reaparezca al hacer scroll hacia arriba
+      //       floating: false,
+      //       // expandedHeight: 250.0, // Altura deseada del área del header
+      //       expandedHeight:
+      //           currentOrientation == Orientation.portrait
+      //               ? 240.0
+      //               : 300.0, // Altura deseada del área del header
+      //       // O el color de fondo que prefieras
+      //       backgroundColor: Colors.transparent,
+      //       flexibleSpace: const FlexibleSpaceBar(background: PageHeader()),
+      //     ),
+      //     SliverList(
+      //       delegate: SliverChildBuilderDelegate((
+      //         BuildContext context,
+      //         int index,
+      //       ) {
+      //         return itemMap[index];
+      //       }, childCount: itemMap.length),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
@@ -242,21 +250,38 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const IconHeader(
-      icon: FontAwesomeIcons.plus,
-      title: 'Medical assistence',
-      subTitle: 'You have requested',
-      backgroundColor1: Colors.deepPurple,
-      backgroundColor2: Colors.blue,
-      // backgroundColor1: Colors.blue,
-      // backgroundColor2: Colors.deepPurple,
+    return Stack(
+      children: [
+        const IconHeader(
+          icon: FontAwesomeIcons.plus,
+          title: 'Medical assistence',
+          subTitle: 'You have requested',
+          backgroundColor1: Colors.deepPurple,
+          backgroundColor2: Colors.blue,
+          // backgroundColor1: Colors.blue,
+          // backgroundColor2: Colors.deepPurple,
 
-      // backgroundColor1: Colors.blueAccent,
-      // backgroundColor2: Colors.green,
-      // backgroundColor1: Colors.green,
-      // backgroundColor2: Colors.blueAccent,
-      beginGradient: Alignment.topCenter,
-      endGradient: Alignment.bottomCenter,
+          // backgroundColor1: Colors.blueAccent,
+          // backgroundColor2: Colors.green,
+          // backgroundColor1: Colors.green,
+          // backgroundColor2: Colors.blueAccent,
+          beginGradient: Alignment.topCenter,
+          endGradient: Alignment.bottomCenter,
+        ),
+        Positioned(
+          top: 50,
+          right: 0,
+          child: RawMaterialButton(
+            onPressed: () {},
+            padding: const EdgeInsets.all(15),
+            shape: const CircleBorder(),
+            child: const FaIcon(
+              FontAwesomeIcons.ellipsisVertical,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
