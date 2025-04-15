@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 // import 'src/labs/slide_show_page.dart';
 // import 'src/pages/slide_show_page.dart';
 // import '/src/pages/pinterest_page.dart';
-import '/src/pages/emergency_page.dart';
+// import '/src/pages/emergency_page.dart';
+import 'src/pages/sliver_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: const SlideShowPage(),
       // home: const PinterestPage(),
-      home: const EmergencyPage(),
+      // home: const EmergencyPage(),
+      home: const SliverListPage(),
     );
   }
 }
