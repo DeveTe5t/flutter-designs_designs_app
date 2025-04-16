@@ -27,10 +27,12 @@ class _ButtonNewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    final sizeWidth = MediaQuery.sizeOf(context).width;
 
     return ButtonTheme(
-      minWidth: size.width * 0.9,
+      // minWidth: size.width * 0.9,
+      minWidth: sizeWidth * 0.9,
       child: MaterialButton(
         onPressed: () {},
         // color: Colors.blue,

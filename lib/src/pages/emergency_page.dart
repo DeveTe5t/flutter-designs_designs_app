@@ -20,7 +20,9 @@ class EmergencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentOrientation = MediaQuery.of(context).orientation;
+    // final currentOrientation = MediaQuery.of(context).orientation;
+    final currentOrientation = MediaQuery.orientationOf(context).name;
+
     // other way to do it
     // OrientationBuilder(
     //   builder: (context, orientation) {
