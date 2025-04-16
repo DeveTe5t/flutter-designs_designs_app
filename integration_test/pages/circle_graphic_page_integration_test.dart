@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:disenos_app/main.dart' as app; // Importa tu main.dart
+// import 'package:disenos_app/main.dart' as app; // Importa tu main.dart
 import 'package:disenos_app/src/pages/circle_graphic_page.dart'; // Importa la página
 import 'package:disenos_app/src/widgets/radial_progress.dart'; // Importa el widget usado
 
