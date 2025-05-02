@@ -21,14 +21,12 @@ class _PrincipalMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-        // child: Container(
         child: Column(
           children: [
-            Container(
-              // padding: EdgeInsets.all(20),
+            const SizedBox(
               width: double.infinity,
               height: 200,
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 backgroundColor: Colors.blue,
                 child: Text(
                   'HEYA',
@@ -57,7 +55,6 @@ class _PrincipalMenu extends StatelessWidget {
             ),
           ],
         ),
-        // ),
       ),
     );
   }
