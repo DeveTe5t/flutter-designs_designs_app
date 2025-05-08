@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // import '/src/pages/animations_page.dart';
 // import '/src/challenges/animated_square_page.dart';
@@ -10,10 +11,13 @@ import 'package:flutter/material.dart';
 // import '/src/pages/pinterest_page.dart';
 // import '/src/pages/emergency_page.dart';
 // import 'src/pages/sliver_list_page.dart';
+import '/src/theme/theme_changer.dart';
 import '/src/pages/launcher_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => ThemeChanger(), child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
