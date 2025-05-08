@@ -16,7 +16,10 @@ import '/src/pages/launcher_page.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(create: (_) => ThemeChanger(), child: const MyApp()),
+    ChangeNotifierProvider(
+      create: (_) => ThemeChanger(1),
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -25,13 +28,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Designs app',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
-      ),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
+      // ),
+      theme: currentTheme,
       // home: const CircleGraphicPage(),
       // home: const SlideShowPage(),
       // home: const PinterestPage(),
