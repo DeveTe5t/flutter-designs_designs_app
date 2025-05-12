@@ -285,8 +285,10 @@
 // way 2: without packages ------------
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 import '/src/widgets/pinterest_menu.dart';
+import '/src/theme/theme_changer.dart';
 
 class _MenuModel with ChangeNotifier {
   bool _showMenu = true;
@@ -377,15 +379,19 @@ class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final showMenu = _PinterestPageNotifier.watch(context).showMenu;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
     return Positioned(
       // bottom: 0,
       bottom: 30,
       child: PinterestMenu(
         showMenu: showMenu,
-        backgroundColor: Colors.green,
-        activeColor: Colors.white,
-        inactiveColor: Colors.black45,
+        // backgroundColor: Colors.green,
+        // activeColor: Colors.white,
+        // inactiveColor: Colors.black45,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
+        activeColor: appTheme.colorScheme.primary,
+        inactiveColor: Colors.blueGrey,
         items: [
           PinterestButton(
             onPressed: () {
@@ -567,15 +573,21 @@ class _PinterestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       // margin: const EdgeInsets.all(5),
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+      decoration: BoxDecoration(
+        // color: Colors.blue,
+        color:
+            appTheme.darkTheme
+                ? appTheme.currentTheme.colorScheme.onPrimary
+                : appTheme.currentTheme.colorScheme.primary,
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
       ),
       child: Center(
         child: CircleAvatar(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           child: Text('$index'),
         ),
       ),
