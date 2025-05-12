@@ -23,17 +23,18 @@ class _PrincipalMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final primaryColor = appTheme.currentTheme.colorScheme.primary;
 
     return Drawer(
       child: SafeArea(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
               height: 200,
               child: CircleAvatar(
-                backgroundColor: Colors.blue,
-                child: Text(
+                backgroundColor: primaryColor,
+                child: const Text(
                   'HEYA',
                   style: TextStyle(fontSize: 50, color: Colors.white),
                 ),
@@ -41,20 +42,20 @@ class _PrincipalMenu extends StatelessWidget {
             ),
             const Expanded(child: _OptionsList()),
             ListTile(
-              leading: const Icon(Icons.lightbulb_outline, color: Colors.blue),
+              leading: Icon(Icons.lightbulb_outline, color: primaryColor),
               title: const Text('Dark mode'),
               trailing: Switch.adaptive(
                 value: appTheme.darkTheme,
-                activeColor: Colors.blue,
+                activeColor: primaryColor,
                 onChanged: (value) => appTheme.darkTheme = value,
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.add_to_home_screen, color: Colors.blue),
+              leading: Icon(Icons.add_to_home_screen, color: primaryColor),
               title: const Text('Custom theme'),
               trailing: Switch.adaptive(
                 value: appTheme.customTheme,
-                activeColor: Colors.blue,
+                activeColor: primaryColor,
                 onChanged: (value) => appTheme.customTheme = value,
               ),
             ),
@@ -70,15 +71,24 @@ class _OptionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) => const Divider(color: Colors.blue),
+      separatorBuilder:
+          (context, index) => Divider(color: appTheme.primaryColorLight),
       itemCount: pageRoutes.length,
       itemBuilder:
           (context, index) => ListTile(
-            leading: FaIcon(pageRoutes[index].icon, color: Colors.blue),
+            leading: FaIcon(
+              pageRoutes[index].icon,
+              color: appTheme.colorScheme.primary,
+            ),
             title: Text(pageRoutes[index].title),
-            trailing: const Icon(Icons.chevron_right, color: Colors.blue),
+            trailing: Icon(
+              Icons.chevron_right,
+              color: appTheme.colorScheme.primary,
+            ),
             onTap: () {
               Navigator.push(
                 context,

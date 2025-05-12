@@ -17,7 +17,7 @@ import '/src/pages/launcher_page.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ThemeChanger(1),
+      create: (_) => ThemeChanger(2),
       child: const MyApp(),
     ),
   );
