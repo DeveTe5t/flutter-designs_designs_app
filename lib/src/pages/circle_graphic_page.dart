@@ -22,18 +22,21 @@ class _CircleGraphicPageState extends State<CircleGraphicPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomRadialProgress(percent: percent),
-              CustomRadialProgress(percent: percent, primaryColor: Colors.red),
+              CustomRadialProgress(
+                percent: percent * 1.2,
+                primaryColor: Colors.red,
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomRadialProgress(
-                percent: percent,
+                percent: percent * 1.4,
                 primaryColor: Colors.green,
               ),
               CustomRadialProgress(
-                percent: percent,
+                percent: percent * 1.6,
                 primaryColor: Colors.purple,
               ),
             ],
