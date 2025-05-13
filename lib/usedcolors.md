@@ -3,3 +3,4 @@
 * primaryColorLight
 * primary
 * scaffoldBackgroundColor
+* textTheme.bodyLarge.color

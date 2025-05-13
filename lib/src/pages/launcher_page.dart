@@ -23,7 +23,8 @@ class _PrincipalMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
-    final primaryColor = appTheme.currentTheme.colorScheme.primary;
+    final primaryColor =
+        appTheme.currentTheme.colorScheme.primary; //inversePrimary;
 
     return Drawer(
       child: SafeArea(
