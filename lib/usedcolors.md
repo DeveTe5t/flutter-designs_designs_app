@@ -1,6 +1,6 @@
 # Used properties
 
-* primaryColorLight
 * primary
+* secondary
 * scaffoldBackgroundColor
 * textTheme.bodyLarge.color

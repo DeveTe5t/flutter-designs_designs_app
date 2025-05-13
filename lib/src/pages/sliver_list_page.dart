@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '/src/theme/theme_changer.dart';
 
 class SliverListPage extends StatelessWidget {
   const SliverListPage({super.key});
@@ -29,6 +32,7 @@ class _ButtonNewList extends StatelessWidget {
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
     final sizeWidth = MediaQuery.sizeOf(context).width;
+    final appTheme = Provider.of<ThemeChanger>(context);
 
     return ButtonTheme(
       // minWidth: size.width * 0.9,
@@ -36,15 +40,23 @@ class _ButtonNewList extends StatelessWidget {
       child: MaterialButton(
         onPressed: () {},
         // color: Colors.blue,
-        color: const Color(0xffED6762),
+        // color:
+        //     appTheme.darkTheme
+        //         ? appTheme.currentTheme.colorScheme.primary
+        //         : appTheme
+        //             .currentTheme
+        //             .colorScheme
+        //             .primary, // const Color(0xffED6762),
+        color: appTheme.currentTheme.colorScheme.primary,
         height: 100,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
         ),
-        child: const Text(
+        child: Text(
           'CREATE NEW LIST',
           style: TextStyle(
-            color: Colors.white,
+            // color: Colors.white,
+            color: appTheme.currentTheme.scaffoldBackgroundColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
             letterSpacing: 3,
@@ -79,6 +91,8 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
@@ -95,7 +109,9 @@ class _MainScroll extends StatelessWidget {
             minHeight: minHeightHeader,
             maxHeight: minHeightHeader + 25,
             child: Container(
-              color: Colors.white,
+              // color: Colors.white,
+              // color: appTheme.colorScheme.primary,
+              color: appTheme.scaffoldBackgroundColor,
               // alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -202,13 +218,15 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       height: 130,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         // color: Colors.orange,
-        color: color,
+        color: appTheme.darkTheme ? color.withAlpha(180) : color,
         borderRadius: BorderRadius.circular(30),
       ),
       alignment: Alignment.centerLeft,
@@ -233,6 +251,8 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Column(
       // spacing: 30,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,7 +263,14 @@ class _Title extends StatelessWidget {
         // margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         Text(
           title,
-          style: const TextStyle(color: Color(0xff532128), fontSize: 50),
+          style: TextStyle(
+            // color:
+            //     appTheme.darkTheme
+            //         ? appTheme.currentTheme.colorScheme.secondary
+            //         : const Color(0xff532128),
+            color: appTheme.currentTheme.colorScheme.secondary,
+            fontSize: 50,
+          ),
         ),
         // ),
         Stack(
@@ -254,7 +281,10 @@ class _Title extends StatelessWidget {
               child: Container(
                 width: 110,
                 height: 8,
-                color: const Color(0xffF7CDD5),
+                color:
+                    appTheme.darkTheme
+                        ? appTheme.currentTheme.colorScheme.secondary
+                        : const Color(0xffF7CDD5),
               ),
             ),
             // Container(

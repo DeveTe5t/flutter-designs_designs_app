@@ -77,7 +77,9 @@ class _OptionsList extends StatelessWidget {
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
       separatorBuilder:
-          (context, index) => Divider(color: appTheme.primaryColorLight),
+          (context, index) => Divider(
+            color: appTheme.colorScheme.primary, // primaryColorLight
+          ),
       itemCount: pageRoutes.length,
       itemBuilder:
           (context, index) => ListTile(
