@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '/src/theme/theme_changer.dart';
 
 class AnimationsPage extends StatelessWidget {
   const AnimationsPage({super.key});
@@ -123,10 +126,14 @@ class _Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return Container(
       width: 70,
       height: 70,
-      decoration: const BoxDecoration(color: Colors.blue),
+      decoration: BoxDecoration(
+        color: appTheme.colorScheme.primary, // Colors.blue
+      ),
     );
   }
 }

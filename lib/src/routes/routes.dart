@@ -5,6 +5,7 @@ import '/src/pages/slide_show_page.dart';
 import '/src/pages/emergency_page.dart';
 import '/src/pages/headers_page.dart';
 import '/src/challenges/animated_square_page.dart';
+// import '/src/pages/animations_page.dart';
 import '/src/pages/circle_graphic_page.dart';
 import '/src/pages/pinterest_page.dart';
 import '/src/pages/sliver_list_page.dart';
@@ -29,6 +30,7 @@ final pageRoutes = <_Route>[
     icon: FontAwesomeIcons.peopleCarryBox,
     title: 'Animated Square',
     page: const AnimatedSquarePage(),
+    // page: const AnimationsPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.circleNotch,
