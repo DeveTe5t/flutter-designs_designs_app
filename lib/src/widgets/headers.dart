@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SquareHeader extends StatelessWidget {
-  const SquareHeader({super.key});
+  final Color color;
+  const SquareHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 300, color: const Color(0xff615AAB));
+    return Container(height: 300, color: color);
   }
 }
 
 class RoundedCornersHeader extends StatelessWidget {
-  const RoundedCornersHeader({super.key});
+  final Color color;
+  const RoundedCornersHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      decoration: const BoxDecoration(
-        color: Color(0xff615AAB),
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(70),
           bottomRight: Radius.circular(70),
         ),
@@ -29,7 +31,8 @@ class RoundedCornersHeader extends StatelessWidget {
 }
 
 class DiagonalHeader extends StatelessWidget {
-  const DiagonalHeader({super.key});
+  final Color color;
+  const DiagonalHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +40,21 @@ class DiagonalHeader extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       // color: Color(0xff615AAB),
-      child: CustomPaint(painter: _HeaderDiagonalPainter()),
+      child: CustomPaint(painter: _HeaderDiagonalPainter(color)),
     );
   }
 }
 
 class _HeaderDiagonalPainter extends CustomPainter {
+  final Color color;
+  _HeaderDiagonalPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
     // Properties
-    paint.color = const Color(0xff615AAB);
+    paint.color = color; // const Color(0xff615AAB);
     // stroke = border, fill = background
     // paint.style = PaintingStyle.stroke;
     paint.style = PaintingStyle.fill;
@@ -72,25 +78,29 @@ class _HeaderDiagonalPainter extends CustomPainter {
 }
 
 class TriangleHeader extends StatelessWidget {
-  const TriangleHeader({super.key});
+  final Color color;
+  const TriangleHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderTrianglePainter()),
+      child: CustomPaint(painter: _HeaderTrianglePainter(color)),
     );
   }
 }
 
 class _HeaderTrianglePainter extends CustomPainter {
+  final Color color;
+  _HeaderTrianglePainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
     // Properties
-    paint.color = const Color(0xff615AAB);
+    paint.color = color; // const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -119,25 +129,29 @@ class _HeaderTrianglePainter extends CustomPainter {
 }
 
 class PointedHeader extends StatelessWidget {
-  const PointedHeader({super.key});
+  final Color color;
+  const PointedHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderPointedPainter()),
+      child: CustomPaint(painter: _HeaderPointedPainter(color)),
     );
   }
 }
 
 class _HeaderPointedPainter extends CustomPainter {
+  final Color color;
+  _HeaderPointedPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
     // Properties
-    paint.color = const Color(0xff615AAB);
+    paint.color = color; // const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -159,25 +173,29 @@ class _HeaderPointedPainter extends CustomPainter {
 }
 
 class CurvedHeader extends StatelessWidget {
-  const CurvedHeader({super.key});
+  final Color color;
+  const CurvedHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderCurvedPainter()),
+      child: CustomPaint(painter: _HeaderCurvedPainter(color)),
     );
   }
 }
 
 class _HeaderCurvedPainter extends CustomPainter {
+  final Color color;
+  _HeaderCurvedPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
     // Properties
-    paint.color = const Color(0xff615AAB);
+    paint.color = color; // const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -267,25 +285,29 @@ class _HeaderWavePainter extends CustomPainter {
 }
 
 class WaveBottomHeader extends StatelessWidget {
-  const WaveBottomHeader({super.key});
+  final Color color;
+  const WaveBottomHeader({super.key, this.color = const Color(0xff615AAB)});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderWaveBottomPainter()),
+      child: CustomPaint(painter: _HeaderWaveBottomPainter(color)),
     );
   }
 }
 
 class _HeaderWaveBottomPainter extends CustomPainter {
+  final Color color;
+  _HeaderWaveBottomPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
     // Properties
-    paint.color = const Color(0xff615AAB);
+    paint.color = color; // const Color(0xff615AAB);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 20.0;
 
@@ -333,19 +355,36 @@ class _HeaderWaveBottomPainter extends CustomPainter {
 }
 
 class WaveGradientHeader extends StatelessWidget {
-  const WaveGradientHeader({super.key});
+  final Color color1;
+  final Color color2;
+  final Color color3;
+
+  const WaveGradientHeader({
+    super.key,
+    this.color1 = const Color(0xff6D05E8),
+    this.color2 = const Color(0xffC012FF),
+    this.color3 = const Color(0xff6D05FA),
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderWaveGradientPainter()),
+      child: CustomPaint(
+        painter: _HeaderWaveGradientPainter(color1, color2, color3),
+      ),
     );
   }
 }
 
 class _HeaderWaveGradientPainter extends CustomPainter {
+  final Color color1;
+  final Color color2;
+  final Color color3;
+
+  _HeaderWaveGradientPainter(this.color1, this.color2, this.color3);
+
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Rect.fromCircle(
@@ -353,10 +392,11 @@ class _HeaderWaveGradientPainter extends CustomPainter {
       radius: 180,
     );
 
-    final Gradient gradient = const LinearGradient(
+    final Gradient gradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: <Color>[Color(0xff6D05E8), Color(0xffC012FF), Color(0xff6D05FA)],
+      // colors: <Color>[Color(0xff6D05E8), Color(0xffC012FF), Color(0xff6D05FA)],
+      colors: <Color>[color1, color2, color3],
       // relation between colors and offset
       stops: [0.2, 0.5, 1.0],
     );

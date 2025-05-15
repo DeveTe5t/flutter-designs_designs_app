@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '/src/pages/slide_show_page.dart';
-import '/src/pages/emergency_page.dart';
-import '/src/pages/headers_page.dart';
+import '/src/pages/pages.dart';
 import '/src/challenges/animated_square_page.dart';
-// import '/src/pages/animations_page.dart';
-import '/src/pages/circle_graphic_page.dart';
-import '/src/pages/pinterest_page.dart';
-import '/src/pages/sliver_list_page.dart';
+import '/src/labs/circular_progress_page.dart';
 
 final pageRoutes = <_Route>[
   _Route(
@@ -27,10 +22,55 @@ final pageRoutes = <_Route>[
     page: const HeadersPage(),
   ),
   _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 1',
+    page: const HeadersPage1(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 2',
+    page: const HeadersPage2(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 3',
+    page: const HeadersPage3(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 4',
+    page: const HeadersPage4(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 5',
+    page: const HeadersPage5(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 6',
+    page: const HeadersPage6(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.heading,
+    title: 'Headers 7',
+    page: const HeadersPage7(),
+  ),
+  _Route(icon: FontAwesomeIcons.f, title: 'Footers', page: const FootersPage()),
+  _Route(
+    icon: FontAwesomeIcons.peopleCarryBox,
+    title: 'Animated Square 0',
+    page: const AnimationsPage(),
+  ),
+  _Route(
     icon: FontAwesomeIcons.peopleCarryBox,
     title: 'Animated Square',
     page: const AnimatedSquarePage(),
-    // page: const AnimationsPage(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.circle,
+    title: 'Progress Circle 0',
+    page: const CircularPregressPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.circleNotch,

@@ -2,6 +2,9 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '/src/theme/theme_changer.dart';
 
 class CircularPregressPage extends StatefulWidget {
   const CircularPregressPage({super.key});
@@ -42,6 +45,8 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     // animationPercent = Tween(
     //   begin: percent,
     //   end: newPercent,
@@ -68,7 +73,13 @@ class _CircularPregressPageState extends State<CircularPregressPage>
           width: 300,
           height: 300,
           // color: Colors.blue,
-          child: CustomPaint(painter: _MyRadialProgress(percent)),
+          child: CustomPaint(
+            painter: _MyRadialProgress(
+              percent: percent,
+              primaryColor: appTheme.currentTheme.colorScheme.primary,
+              secondaryColor: appTheme.currentTheme.colorScheme.secondary,
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -84,8 +95,11 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
           setState(() {});
         },
-        backgroundColor: Colors.pink,
-        child: const Icon(Icons.refresh, color: Colors.white),
+        backgroundColor: appTheme.currentTheme.colorScheme.primary,
+        child: Icon(
+          Icons.refresh,
+          color: appTheme.darkTheme ? Colors.black : Colors.white,
+        ),
       ),
     );
   }
@@ -93,7 +107,14 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
 class _MyRadialProgress extends CustomPainter {
   final double percent;
-  _MyRadialProgress(this.percent);
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  _MyRadialProgress({
+    required this.percent,
+    required this.primaryColor,
+    required this.secondaryColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -101,7 +122,8 @@ class _MyRadialProgress extends CustomPainter {
     final paint =
         Paint()
           ..strokeWidth = 4
-          ..color = Colors.grey
+          // ..color = Colors.grey
+          ..color = secondaryColor
           ..style = PaintingStyle.stroke;
 
     // Draw circle
@@ -114,7 +136,8 @@ class _MyRadialProgress extends CustomPainter {
     final paintArc =
         Paint()
           ..strokeWidth = 10
-          ..color = Colors.pink
+          // ..color = Colors.pink
+          ..color = primaryColor
           ..style = PaintingStyle.stroke;
 
     // Part to fill
