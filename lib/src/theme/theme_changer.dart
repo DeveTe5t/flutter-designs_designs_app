@@ -80,6 +80,8 @@ class ThemeChanger with ChangeNotifier {
       _currentTheme = ThemeData.dark().copyWith(
         colorScheme: const ColorScheme.dark(
           primary: Color(0xff48A0EB),
+          inversePrimary: Color(0xFF6FE4F9),
+          primaryContainer: Color.fromARGB(255, 8, 136, 249),
           secondary: Colors.grey,
         ),
         scaffoldBackgroundColor: const Color(0xff16202B),
