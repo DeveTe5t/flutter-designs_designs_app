@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 // import 'src/pages/sliver_list_page.dart';
 import '/src/theme/theme_changer.dart';
 import '/src/pages/launcher_page.dart';
+import '/src/theme/theme_changer2.dart';
 
 void main() {
   runApp(
@@ -23,27 +24,50 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late ThemeChanger2 themeChanger;
+
+  @override
+  void initState() {
+    super.initState();
+    themeChanger = ThemeChanger2(2);
+  }
+
+  @override
+  void dispose() {
+    themeChanger.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Designs app',
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //   // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
-      // ),
-      theme: currentTheme,
-      // home: const CircleGraphicPage(),
-      // home: const SlideShowPage(),
-      // home: const PinterestPage(),
-      // home: const EmergencyPage(),
-      // home: const SliverListPage(),
-      home: const LauncherPage(),
+    return ThemeChanger2Notifier(
+      model: themeChanger,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Designs app',
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   // colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff615AAB)),
+        // ),
+        // theme: currentTheme,
+        theme: themeChanger.currentTheme,
+        // home: const CircleGraphicPage(),
+        // home: const SlideShowPage(),
+        // home: const PinterestPage(),
+        // home: const EmergencyPage(),
+        // home: const SliverListPage(),
+        home: const LauncherPage(),
+      ),
     );
   }
 }
