@@ -579,16 +579,18 @@ class _PinterestItem extends StatelessWidget {
       // margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         // color: Colors.blue,
-        color:
-            appTheme.darkTheme
-                ? appTheme.currentTheme.colorScheme.onPrimary
-                : appTheme.currentTheme.colorScheme.primary,
+        // color:
+        //     appTheme.darkTheme
+        //         ? appTheme.currentTheme.colorScheme.onPrimary
+        //         : appTheme.currentTheme.colorScheme.primary,
+        color: appTheme.currentTheme.colorScheme.primary,
         borderRadius: const BorderRadius.all(Radius.circular(30)),
       ),
       child: Center(
         child: CircleAvatar(
-          // backgroundColor: Colors.white,
-          child: Text('$index'),
+          backgroundColor: Colors.white,
+          // backgroundColor: appTheme.currentTheme.colorScheme.onPrimaryContainer,
+          child: Text('$index', style: const TextStyle(color: Colors.black)),
         ),
       ),
     );

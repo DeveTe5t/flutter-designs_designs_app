@@ -10,8 +10,15 @@ class LauncherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = ThemeChangerNotifier.watch(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Designs')),
+      appBar: AppBar(
+        backgroundColor: appTheme.currentTheme.colorScheme.primary,
+        // Because in custom theme, the color was black in light mode
+        title: const Text('Designs', style: TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       drawer: _PrincipalMenu(),
       body: const _OptionsList(),
     );
@@ -25,6 +32,7 @@ class _PrincipalMenu extends StatelessWidget {
     final primaryColor = appTheme.currentTheme.colorScheme.primary;
 
     return Drawer(
+      backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
       child: SafeArea(
         child: Column(
           children: [
@@ -42,7 +50,12 @@ class _PrincipalMenu extends StatelessWidget {
             const Expanded(child: _OptionsList()),
             ListTile(
               leading: Icon(Icons.lightbulb_outline, color: primaryColor),
-              title: const Text('Dark mode'),
+              title: Text(
+                'Dark mode',
+                style: TextStyle(
+                  color: appTheme.currentTheme.colorScheme.secondary,
+                ),
+              ),
               trailing: Switch.adaptive(
                 value: appTheme.darkTheme,
                 activeColor: primaryColor,
@@ -51,7 +64,12 @@ class _PrincipalMenu extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.add_to_home_screen, color: primaryColor),
-              title: const Text('Custom theme'),
+              title: Text(
+                'Custom theme',
+                style: TextStyle(
+                  color: appTheme.currentTheme.colorScheme.secondary,
+                ),
+              ),
               trailing: Switch.adaptive(
                 value: appTheme.customTheme,
                 activeColor: primaryColor,
@@ -85,7 +103,10 @@ class _OptionsList extends StatelessWidget {
               pageRoutes[index].icon,
               color: appTheme.colorScheme.primary,
             ),
-            title: Text(pageRoutes[index].title),
+            title: Text(
+              pageRoutes[index].title,
+              style: TextStyle(color: appTheme.colorScheme.secondary),
+            ),
             trailing: Icon(
               Icons.chevron_right,
               color: appTheme.colorScheme.primary,
