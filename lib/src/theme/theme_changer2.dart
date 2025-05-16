@@ -35,8 +35,6 @@ class ThemeChanger2 with ChangeNotifier {
   }
 
   set darkTheme(bool value) {
-    if (value == _darkTheme) return;
-
     _darkTheme = value;
     _customTheme = false;
 
@@ -50,8 +48,6 @@ class ThemeChanger2 with ChangeNotifier {
   }
 
   set customTheme(bool value) {
-    if (value == _customTheme) return;
-
     _customTheme = value;
     _darkTheme = false;
 
@@ -60,7 +56,7 @@ class ThemeChanger2 with ChangeNotifier {
         colorScheme: const ColorScheme.dark(
           primary: Color(0xff48A0EB),
           inversePrimary: Color(0xFF6FE4F9),
-          primaryContainer: Color.fromARGB(255, 8, 136, 249),
+          primaryContainer: Color(0xFF0888F9),
           secondary: Colors.grey,
         ),
         scaffoldBackgroundColor: const Color(0xff16202B),
@@ -95,7 +91,10 @@ class ThemeChanger2Notifier extends InheritedNotifier<ThemeChanger2> {
         context
             .getElementForInheritedWidgetOfExactType<ThemeChanger2Notifier>()
             ?.widget;
-    assert(widget != null, 'No ThemeChanger2 found in context');
+    assert(
+      widget is ThemeChanger2Notifier,
+      'No ThemeChanger2 found in context',
+    );
     return (widget as ThemeChanger2Notifier).notifier!;
   }
 }

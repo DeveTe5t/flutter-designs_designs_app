@@ -81,7 +81,7 @@ class ThemeChanger with ChangeNotifier {
         colorScheme: const ColorScheme.dark(
           primary: Color(0xff48A0EB),
           inversePrimary: Color(0xFF6FE4F9),
-          primaryContainer: Color.fromARGB(255, 8, 136, 249),
+          primaryContainer: Color(0xFF0888F9),
           secondary: Colors.grey,
         ),
         scaffoldBackgroundColor: const Color(0xff16202B),
