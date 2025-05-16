@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
-import '/src/theme/theme_changer.dart';
+// import '/src/theme/theme_changer.dart';
+import '/src/theme/theme_changer2.dart';
 
 class SliverListPage extends StatelessWidget {
   const SliverListPage({super.key});
@@ -32,7 +33,8 @@ class _ButtonNewList extends StatelessWidget {
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
     final sizeWidth = MediaQuery.sizeOf(context).width;
-    final appTheme = Provider.of<ThemeChanger>(context);
+    // final appTheme = Provider.of<ThemeChanger>(context);
+    final appTheme2 = ThemeChanger2Notifier.watch(context);
 
     return ButtonTheme(
       // minWidth: size.width * 0.9,
@@ -47,7 +49,8 @@ class _ButtonNewList extends StatelessWidget {
         //             .currentTheme
         //             .colorScheme
         //             .primary, // const Color(0xffED6762),
-        color: appTheme.currentTheme.colorScheme.primary,
+        // color: appTheme.currentTheme.colorScheme.primary,
+        color: appTheme2.currentTheme.colorScheme.primary,
         height: 100,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
@@ -56,7 +59,8 @@ class _ButtonNewList extends StatelessWidget {
           'CREATE NEW LIST',
           style: TextStyle(
             // color: Colors.white,
-            color: appTheme.currentTheme.scaffoldBackgroundColor,
+            // color: appTheme.currentTheme.scaffoldBackgroundColor,
+            color: appTheme2.currentTheme.scaffoldBackgroundColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
             letterSpacing: 3,
@@ -91,7 +95,8 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
 
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
@@ -111,7 +116,8 @@ class _MainScroll extends StatelessWidget {
             child: Container(
               // color: Colors.white,
               // color: appTheme.colorScheme.primary,
-              color: appTheme.scaffoldBackgroundColor,
+              // color: appTheme.scaffoldBackgroundColor,
+              color: appTheme2.scaffoldBackgroundColor,
               // alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -218,7 +224,8 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context);
+    // final appTheme = Provider.of<ThemeChanger>(context);
+    final appTheme2 = ThemeChanger2Notifier.watch(context);
 
     return Container(
       height: 130,
@@ -226,7 +233,8 @@ class _ListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         // color: Colors.orange,
-        color: appTheme.darkTheme ? color.withAlpha(180) : color,
+        // color: appTheme.darkTheme ? color.withAlpha(180) : color,
+        color: appTheme2.darkTheme ? color.withAlpha(180) : color,
         borderRadius: BorderRadius.circular(30),
       ),
       alignment: Alignment.centerLeft,
@@ -251,7 +259,8 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context);
+    // final appTheme = Provider.of<ThemeChanger>(context);
+    final appTheme2 = ThemeChanger2Notifier.watch(context);
 
     return Column(
       // spacing: 30,
@@ -268,7 +277,8 @@ class _Title extends StatelessWidget {
             //     appTheme.darkTheme
             //         ? appTheme.currentTheme.colorScheme.secondary
             //         : const Color(0xff532128),
-            color: appTheme.currentTheme.colorScheme.secondary,
+            // color: appTheme.currentTheme.colorScheme.secondary,
+            color: appTheme2.currentTheme.colorScheme.secondary,
             fontSize: 50,
           ),
         ),
@@ -281,9 +291,13 @@ class _Title extends StatelessWidget {
               child: Container(
                 width: 110,
                 height: 8,
+                // color:
+                //     appTheme.darkTheme
+                //         ? appTheme.currentTheme.colorScheme.secondary
+                //         : const Color(0xffF7CDD5),
                 color:
-                    appTheme.darkTheme
-                        ? appTheme.currentTheme.colorScheme.secondary
+                    appTheme2.darkTheme
+                        ? appTheme2.currentTheme.colorScheme.secondary
                         : const Color(0xffF7CDD5),
               ),
             ),

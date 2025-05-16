@@ -283,13 +283,13 @@
 // // }
 
 // way 2: without packages ------------
-import 'package:disenos_app/src/theme/theme_changer2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 import '/src/widgets/pinterest_menu.dart';
-import '/src/theme/theme_changer.dart';
+// import '/src/theme/theme_changer.dart';
+import '/src/theme/theme_changer2.dart';
 
 class _MenuModel with ChangeNotifier {
   bool _showMenu = true;
@@ -380,7 +380,7 @@ class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final showMenu = _PinterestPageNotifier.watch(context).showMenu;
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
 
     return Positioned(
@@ -578,7 +578,7 @@ class _PinterestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context);
+    // final appTheme = Provider.of<ThemeChanger>(context);
     final appTheme2 = ThemeChanger2Notifier.watch(context);
 
     return Container(

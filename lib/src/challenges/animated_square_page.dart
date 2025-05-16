@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 import '/src/theme/theme_changer.dart';
+import '/src/theme/theme_changer2.dart';
 
 class AnimatedSquarePage extends StatelessWidget {
   const AnimatedSquarePage({super.key});
@@ -106,12 +107,14 @@ class _Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
 
     return Container(
       width: 70,
       height: 70,
-      color: appTheme.colorScheme.primary, // Colors.blue
+      // color: appTheme.colorScheme.primary, // Colors.blue
+      color: appTheme2.colorScheme.primary,
     );
   }
 }

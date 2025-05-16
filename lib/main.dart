@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 // import '/src/pages/animations_page.dart';
 // import '/src/challenges/animated_square_page.dart';
@@ -11,16 +11,17 @@ import 'package:provider/provider.dart';
 // import '/src/pages/pinterest_page.dart';
 // import '/src/pages/emergency_page.dart';
 // import 'src/pages/sliver_list_page.dart';
-import '/src/theme/theme_changer.dart';
+// import '/src/theme/theme_changer.dart';
 import '/src/pages/launcher_page.dart';
 import '/src/theme/theme_changer2.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeChanger(2),
-      child: const MyApp(),
-    ),
+    // ChangeNotifierProvider(
+    //   create: (_) => ThemeChanger(2),
+    //   child: const MyApp(),
+    // ),
+    const MyApp(),
   );
 }
 
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
     return ThemeChanger2Notifier(
       model: themeChanger,

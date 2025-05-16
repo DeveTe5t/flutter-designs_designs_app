@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 import '/src/widgets/radial_progress.dart';
 import '/src/theme/theme_changer.dart';
+import '/src/theme/theme_changer2.dart';
 
 class CircleGraphicPage extends StatefulWidget {
   const CircleGraphicPage({super.key});
@@ -72,7 +73,8 @@ class CustomRadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
 
     return SizedBox(
       width: 180,
@@ -82,7 +84,8 @@ class CustomRadialProgress extends StatelessWidget {
         primaryColor: primaryColor,
         // secondaryColor: Colors.black12,
         // secondaryColor: Colors.grey,
-        secondaryColor: appTheme.textTheme.bodyLarge!.color!,
+        // secondaryColor: appTheme.textTheme.bodyLarge!.color!,
+        secondaryColor: appTheme2.textTheme.bodyLarge!.color!,
         // strockWidthPrimary: 3,
         // strockWidthSecondary: 2,
       ),
