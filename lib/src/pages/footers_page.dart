@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 
 import '/src/widgets/headers.dart';
-// import '/src/theme/theme_changer.dart';
-import '/src/theme/theme_changer2.dart';
+import '/src/theme/theme_changer.dart';
 
 class FootersPage extends StatelessWidget {
   const FootersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final appTheme = Provider.of<ThemeChanger>(context);
-    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
+    final appTheme = ThemeChangerNotifier.watch(context).currentTheme;
 
     return Scaffold(
-      // body: WaveBottomHeader(color: appTheme.currentTheme.colorScheme.primary),
-      body: WaveBottomHeader(color: appTheme2.colorScheme.primary),
+      body: WaveBottomHeader(color: appTheme.colorScheme.primary),
     );
   }
 }

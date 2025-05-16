@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-// import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '/src/widgets/slide_show.dart';
-// import '/src/theme/theme_changer.dart';
-import '/src/theme/theme_changer2.dart';
+import '/src/theme/theme_changer.dart';
 
 class SlideShowPage extends StatelessWidget {
   const SlideShowPage({super.key});
@@ -30,8 +28,7 @@ class MySlideShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final appTheme = Provider.of<ThemeChanger>(context);
-    final appTheme2 = ThemeChanger2Notifier.watch(context);
+    final appTheme = ThemeChangerNotifier.watch(context);
 
     return SlideShow(
       // dotsUp: true,
@@ -40,8 +37,7 @@ class MySlideShow extends StatelessWidget {
       //     appTheme.darkTheme
       //         ? appTheme.currentTheme.colorScheme.primary
       //         : Colors.blue,
-      // dotPrimaryColor: appTheme.currentTheme.colorScheme.primary,
-      dotPrimaryColor: appTheme2.currentTheme.colorScheme.primary,
+      dotPrimaryColor: appTheme.currentTheme.colorScheme.primary,
       // dotSecondaryColor: Colors.black26,
       dotPrimarySize: 20,
       dotSecondarySize: 12,

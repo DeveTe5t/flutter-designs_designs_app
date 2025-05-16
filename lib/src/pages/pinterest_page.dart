@@ -285,11 +285,9 @@
 // way 2: without packages ------------
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-// import 'package:provider/provider.dart';
 
 import '/src/widgets/pinterest_menu.dart';
-// import '/src/theme/theme_changer.dart';
-import '/src/theme/theme_changer2.dart';
+import '/src/theme/theme_changer.dart';
 
 class _MenuModel with ChangeNotifier {
   bool _showMenu = true;
@@ -380,22 +378,19 @@ class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final showMenu = _PinterestPageNotifier.watch(context).showMenu;
-    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
-    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
+    final appTheme = ThemeChangerNotifier.watch(context).currentTheme;
 
     return Positioned(
       // bottom: 0,
       bottom: 30,
       child: PinterestMenu(
         showMenu: showMenu,
+
         // backgroundColor: Colors.green,
         // activeColor: Colors.white,
         // inactiveColor: Colors.black45,
-
-        // backgroundColor: appTheme.scaffoldBackgroundColor,
-        // activeColor: appTheme.colorScheme.primary,
-        backgroundColor: appTheme2.scaffoldBackgroundColor,
-        activeColor: appTheme2.colorScheme.primary,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
+        activeColor: appTheme.colorScheme.primary,
         inactiveColor: Colors.blueGrey,
         items: [
           PinterestButton(
@@ -578,21 +573,16 @@ class _PinterestItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final appTheme = Provider.of<ThemeChanger>(context);
-    final appTheme2 = ThemeChanger2Notifier.watch(context);
+    final appTheme = ThemeChangerNotifier.watch(context);
 
     return Container(
       // margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         // color: Colors.blue,
-        // color:
-        //     appTheme.darkTheme
-        //         ? appTheme.currentTheme.colorScheme.onPrimary
-        //         : appTheme.currentTheme.colorScheme.primary,
         color:
-            appTheme2.darkTheme
-                ? appTheme2.currentTheme.colorScheme.onPrimary
-                : appTheme2.currentTheme.colorScheme.primary,
+            appTheme.darkTheme
+                ? appTheme.currentTheme.colorScheme.onPrimary
+                : appTheme.currentTheme.colorScheme.primary,
         borderRadius: const BorderRadius.all(Radius.circular(30)),
       ),
       child: Center(

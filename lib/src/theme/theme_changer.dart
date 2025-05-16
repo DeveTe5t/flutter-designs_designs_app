@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class ThemeChanger with ChangeNotifier {
   bool _darkTheme = false;
   bool _customTheme = false;
-
   ThemeData _currentTheme = ThemeData.light();
 
   bool get darkTheme => _darkTheme;
@@ -21,29 +20,11 @@ class ThemeChanger with ChangeNotifier {
         _darkTheme = true;
         _customTheme = false;
         _currentTheme = ThemeData.dark();
-        // _currentTheme = ThemeData.dark().copyWith(
-        //   colorScheme: const ColorScheme.dark(
-        //     primary: Colors.blue,
-        //     secondary: Colors.green,
-        //   ),
-        // );
         break;
       case 3: // custom
         _darkTheme = false;
         _customTheme = true;
         _currentTheme = ThemeData.light();
-        // _currentTheme = ThemeData(
-        //   primaryColor: const Color(0xff615AAB),
-        //   colorScheme: const ColorScheme.light(primary: Color(0xff615AAB)),
-        //   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        //     backgroundColor: Color(0xff615AAB),
-        //   ),
-        //   appBarTheme: const AppBarTheme(
-        //     color: Color(0xff615AAB),
-        //     centerTitle: false,
-        //     elevation: 0,
-        //   ),
-        // );
         break;
 
       default:
@@ -59,12 +40,6 @@ class ThemeChanger with ChangeNotifier {
 
     if (value) {
       _currentTheme = ThemeData.dark();
-      // _currentTheme = ThemeData.dark().copyWith(
-      //   colorScheme: const ColorScheme.dark(
-      //     primary: Colors.blue,
-      //     secondary: Colors.green,
-      //   ),
-      // );
     } else {
       _currentTheme = ThemeData.light();
     }
@@ -92,5 +67,31 @@ class ThemeChanger with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+}
+
+class ThemeChangerNotifier extends InheritedNotifier<ThemeChanger> {
+  const ThemeChangerNotifier({
+    super.key,
+    required ThemeChanger model,
+    required super.child,
+  }) : super(notifier: model);
+
+  static ThemeChanger watch(BuildContext context) {
+    final notifier =
+        context
+            .dependOnInheritedWidgetOfExactType<ThemeChangerNotifier>()
+            ?.notifier;
+    assert(notifier != null, 'No ThemeChanger found in context');
+    return notifier!;
+  }
+
+  static ThemeChanger read(BuildContext context) {
+    final widget =
+        context
+            .getElementForInheritedWidgetOfExactType<ThemeChangerNotifier>()
+            ?.widget;
+    assert(widget is ThemeChangerNotifier, 'No ThemeChanger found in context');
+    return (widget as ThemeChangerNotifier).notifier!;
   }
 }

@@ -2,10 +2,8 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 
 import '/src/theme/theme_changer.dart';
-import '/src/theme/theme_changer2.dart';
 
 class CircularPregressPage extends StatefulWidget {
   const CircularPregressPage({super.key});
@@ -46,8 +44,7 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
   @override
   Widget build(BuildContext context) {
-    // final appTheme = Provider.of<ThemeChanger>(context);
-    final appTheme2 = ThemeChanger2Notifier.watch(context);
+    final appTheme = ThemeChangerNotifier.watch(context);
 
     // animationPercent = Tween(
     //   begin: percent,
@@ -78,10 +75,8 @@ class _CircularPregressPageState extends State<CircularPregressPage>
           child: CustomPaint(
             painter: _MyRadialProgress(
               percent: percent,
-              // primaryColor: appTheme.currentTheme.colorScheme.primary,
-              // secondaryColor: appTheme.currentTheme.colorScheme.secondary,
-              primaryColor: appTheme2.currentTheme.colorScheme.primary,
-              secondaryColor: appTheme2.currentTheme.colorScheme.secondary,
+              primaryColor: appTheme.currentTheme.colorScheme.primary,
+              secondaryColor: appTheme.currentTheme.colorScheme.secondary,
             ),
           ),
         ),
@@ -99,12 +94,10 @@ class _CircularPregressPageState extends State<CircularPregressPage>
 
           setState(() {});
         },
-        // backgroundColor: appTheme.currentTheme.colorScheme.primary,
-        backgroundColor: appTheme2.currentTheme.colorScheme.primary,
+        backgroundColor: appTheme.currentTheme.colorScheme.primary,
         child: Icon(
           Icons.refresh,
-          // color: appTheme.darkTheme ? Colors.black : Colors.white,
-          color: appTheme2.darkTheme ? Colors.black : Colors.white,
+          color: appTheme.darkTheme ? Colors.black : Colors.white,
         ),
       ),
     );

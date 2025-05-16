@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 // import 'src/pages/sliver_list_page.dart';
 // import '/src/theme/theme_changer.dart';
 import '/src/pages/launcher_page.dart';
-import '/src/theme/theme_changer2.dart';
+import 'src/theme/theme_changer.dart';
 
 void main() {
   runApp(
@@ -33,12 +33,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late ThemeChanger2 themeChanger;
+  late ThemeChanger themeChanger;
 
   @override
   void initState() {
     super.initState();
-    themeChanger = ThemeChanger2(2);
+    themeChanger = ThemeChanger(2);
   }
 
   @override
@@ -49,9 +49,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
-
-    return ThemeChanger2Notifier(
+    return ThemeChangerNotifier(
       model: themeChanger,
       // Se utiliza un Builder para obtener un BuildContext que está *debajo*
       // de ThemeChanger2Notifier en el árbol de widgets. Esto permite
@@ -64,7 +62,7 @@ class _MyAppState extends State<MyApp> {
           // ThemeChanger2 y notifica a sus oyentes, este Builder se reconstruirá,
           // actualizando el tema del MaterialApp.
           final currentThemeFromNotifier =
-              ThemeChanger2Notifier.watch(context).currentTheme;
+              ThemeChangerNotifier.watch(context).currentTheme;
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,

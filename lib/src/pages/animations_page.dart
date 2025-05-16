@@ -1,9 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 
 import '/src/theme/theme_changer.dart';
-import '/src/theme/theme_changer2.dart';
 
 class AnimationsPage extends StatelessWidget {
   const AnimationsPage({super.key});
@@ -127,15 +125,13 @@ class _Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
-    final appTheme2 = ThemeChanger2Notifier.watch(context).currentTheme;
+    final appTheme = ThemeChangerNotifier.watch(context).currentTheme;
 
     return Container(
       width: 70,
       height: 70,
       decoration: BoxDecoration(
-        // color: appTheme.colorScheme.primary, // Colors.blue
-        color: appTheme2.colorScheme.primary, // Colors.blue
+        color: appTheme.colorScheme.primary, // Colors.blue
       ),
     );
   }
