@@ -225,7 +225,10 @@ class _ListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         // color: Colors.orange,
-        color: appTheme.darkTheme ? color.withAlpha(180) : color,
+        color:
+            (appTheme.darkTheme || appTheme.customTheme)
+                ? color.withAlpha(180)
+                : color,
         borderRadius: BorderRadius.circular(30),
       ),
       alignment: Alignment.centerLeft,
