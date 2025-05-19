@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum AppThemeType { light, dark, custom }
+
 class ThemeChanger with ChangeNotifier {
   bool _darkTheme = false;
   bool _customTheme = false;
@@ -9,9 +11,9 @@ class ThemeChanger with ChangeNotifier {
   bool get customTheme => _customTheme;
   ThemeData get currentTheme => _currentTheme;
 
-  ThemeChanger(int theme) {
+  ThemeChanger(AppThemeType theme) {
     switch (theme) {
-      case 1: // light
+      case AppThemeType.light: // light
         _darkTheme = false;
         _customTheme = false;
         _currentTheme = ThemeData.light().copyWith(
@@ -27,7 +29,7 @@ class ThemeChanger with ChangeNotifier {
           ),
         );
         break;
-      case 2: // dark
+      case AppThemeType.dark: // dark
         _darkTheme = true;
         _customTheme = false;
         _currentTheme = ThemeData.dark().copyWith(
@@ -39,16 +41,26 @@ class ThemeChanger with ChangeNotifier {
           ),
         );
         break;
-      case 3: // custom
+      case AppThemeType.custom: // custom
         _darkTheme = false;
         _customTheme = true;
-        _currentTheme = ThemeData.light();
+        // _currentTheme = ThemeData.light();
+        _currentTheme = ThemeData.dark().copyWith(
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xff48A0EB),
+            inversePrimary: Color(0xFF6FE4F9),
+            primaryContainer: Color(0xFF0888F9),
+            secondary: Colors.white,
+          ),
+          scaffoldBackgroundColor: const Color(0xff16202B),
+          textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.white)),
+        );
         break;
 
-      default:
-        _darkTheme = false;
-        _customTheme = false;
-        _currentTheme = ThemeData.light();
+      // default:
+      //   _darkTheme = false;
+      //   _customTheme = false;
+      //   _currentTheme = ThemeData.light();
     }
   }
 

@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    themeChanger = ThemeChanger(2);
+    themeChanger = ThemeChanger(AppThemeType.dark);
   }
 
   @override
