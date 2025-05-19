@@ -83,3 +83,48 @@ class AppWithTheme extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+
+// import '/src/pages/launcher_page.dart';
+// import 'src/theme/theme_changer.dart';
+
+// void main() {
+//   // Crear ThemeChanger en main() y pasarlo a MyApp
+//   final themeChanger = ThemeChanger(AppThemeType.dark);
+//   runApp(MyApp(themeChanger: themeChanger));
+// }
+
+// // Convertir a StatelessWidget
+// class MyApp extends StatelessWidget {
+//   final ThemeChanger themeChanger;
+
+//   const MyApp({super.key, required this.themeChanger});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ThemeChangerNotifier(
+//       model: themeChanger,
+//       child: const AppWithTheme(),
+//     );
+//   }
+// }
+
+// // AppWithTheme permanece igual
+// class AppWithTheme extends StatelessWidget {
+//   const AppWithTheme({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // Se accede al ThemeChanger a través del método watch del Notifier.
+//     final currentThemeFromNotifier =
+//         ThemeChangerNotifier.watch(context).currentTheme;
+
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Designs app',
+//       theme: currentThemeFromNotifier,
+//       home: const LauncherPage(),
+//     );
+//   }
+// }
