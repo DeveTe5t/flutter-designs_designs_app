@@ -56,15 +56,12 @@ class ThemeChanger with ChangeNotifier {
           textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.white)),
         );
         break;
-
-      // default:
-      //   _darkTheme = false;
-      //   _customTheme = false;
-      //   _currentTheme = ThemeData.light();
     }
   }
 
   set darkTheme(bool value) {
+    if (_darkTheme == value) return;
+
     _darkTheme = value;
     _customTheme = false;
 
@@ -88,6 +85,8 @@ class ThemeChanger with ChangeNotifier {
   }
 
   set customTheme(bool value) {
+    if (_customTheme == value) return;
+
     _customTheme = value;
     _darkTheme = false;
 

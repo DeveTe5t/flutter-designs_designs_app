@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '/src/pages/launcher_page.dart';
 import 'src/theme/theme_changer.dart';
 
+// ------- 1 With stateful
 void main() {
   runApp(const MyApp());
 }
@@ -84,18 +85,18 @@ class AppWithTheme extends StatelessWidget {
   }
 }
 
-// import 'package:flutter/material.dart';
-
-// import '/src/pages/launcher_page.dart';
-// import 'src/theme/theme_changer.dart';
-
+// ------- 2 Without stateful
 // void main() {
-//   // Crear ThemeChanger en main() y pasarlo a MyApp
+//   // 1. Crear la instancia de ThemeChanger aquí.
 //   final themeChanger = ThemeChanger(AppThemeType.dark);
+//   // NOTA: Si ThemeChanger necesita liberar recursos (llamar a dispose),
+//   // este enfoque simple no lo maneja automáticamente al cerrar la app.
+//   // Para una gestión de ciclo de vida más robusta, considera usar un paquete
+//   // como 'provider' con ChangeNotifierProvider, que sí maneja el dispose.
 //   runApp(MyApp(themeChanger: themeChanger));
 // }
 
-// // Convertir a StatelessWidget
+// // 2. MyApp ahora es un StatelessWidget.
 // class MyApp extends StatelessWidget {
 //   final ThemeChanger themeChanger;
 
@@ -103,6 +104,7 @@ class AppWithTheme extends StatelessWidget {
 
 //   @override
 //   Widget build(BuildContext context) {
+//     // 3. Pasa la instancia de themeChanger a ThemeChangerNotifier.
 //     return ThemeChangerNotifier(
 //       model: themeChanger,
 //       child: const AppWithTheme(),
@@ -110,13 +112,14 @@ class AppWithTheme extends StatelessWidget {
 //   }
 // }
 
-// // AppWithTheme permanece igual
+// // AppWithTheme permanece igual, ya que su lógica para escuchar cambios
+// // a través de ThemeChangerNotifier.watch(context) es independiente
+// // de si MyApp es StatefulWidget o StatelessWidget.
 // class AppWithTheme extends StatelessWidget {
 //   const AppWithTheme({super.key});
 
 //   @override
 //   Widget build(BuildContext context) {
-//     // Se accede al ThemeChanger a través del método watch del Notifier.
 //     final currentThemeFromNotifier =
 //         ThemeChangerNotifier.watch(context).currentTheme;
 
