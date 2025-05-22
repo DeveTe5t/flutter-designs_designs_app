@@ -11,6 +11,7 @@ export 'headers_page6.dart';
 export 'headers_page7.dart';
 export 'footers_page.dart';
 export 'launcher_page.dart';
+export 'launcher_tablet_page.dart';
 export 'pinterest_page.dart';
 export 'slide_show_page.dart';
 export 'sliver_list_page.dart';

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '/src/pages/launcher_page.dart';
-import 'src/theme/theme_changer.dart';
+// import '/src/pages/launcher_page.dart';
+import '/src/pages/pages.dart';
+import '/src/theme/theme_changer.dart';
+import '/src/models/layout_model.dart';
 
-// ------- 1 With stateful
+// ####### 1 With stateful
 void main() {
   runApp(const MyApp());
 }
@@ -17,16 +19,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late ThemeChanger themeChanger;
+  late LayoutModel layoutModel;
 
   @override
   void initState() {
     super.initState();
     themeChanger = ThemeChanger(AppThemeType.dark);
+    layoutModel = LayoutModel();
   }
 
   @override
   void dispose() {
     themeChanger.dispose();
+    layoutModel.dispose();
     super.dispose();
   }
 
@@ -56,12 +61,14 @@ class _MyAppState extends State<MyApp> {
 
       // ------- Way 2
       // Se reemplaza el Builder con un widget dedicado
-      child: const AppWithTheme(),
+      child: LayoutModelNotifier(
+        model: layoutModel,
+        child: const AppWithTheme(),
+      ),
     );
   }
 }
 
-// for Way 2: clearer
 // Nuevo StatelessWidget para construir el MaterialApp con el tema reactivo
 class AppWithTheme extends StatelessWidget {
   const AppWithTheme({super.key});
@@ -80,12 +87,27 @@ class AppWithTheme extends StatelessWidget {
       title: 'Designs app',
       // Se usa el tema obtenido del Notifier, que ahora es reactivo.
       theme: currentThemeFromNotifier,
-      home: const LauncherPage(),
+      // Before
+      // home: const LauncherPage(),
+      // After
+      home: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          // print('Orientation: $orientation');
+          // final screenSize = MediaQuery.of(context).size;
+          final screenSize = MediaQuery.sizeOf(context).width;
+
+          if (screenSize > 500) {
+            return const LauncherTabletPage();
+          }
+
+          return const LauncherPage();
+        },
+      ),
     );
   }
 }
 
-// ------- 2 Without stateful
+// ####### 2 Without stateful
 // void main() {
 //   // 1. Crear la instancia de ThemeChanger aquí.
 //   final themeChanger = ThemeChanger(AppThemeType.dark);
