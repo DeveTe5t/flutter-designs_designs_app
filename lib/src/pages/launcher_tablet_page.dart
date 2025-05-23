@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '/src/routes/routes.dart';
 import '/src/theme/theme_changer.dart';
-import '/src/pages/pages.dart';
+import '/src/models/layout_model.dart';
+// import '/src/pages/pages.dart';
 
 class LauncherTabletPage extends StatelessWidget {
   const LauncherTabletPage({super.key});
@@ -12,6 +13,7 @@ class LauncherTabletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = ThemeChangerNotifier.watch(context);
+    final layoutModel = LayoutModelNotifier.watch(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +44,8 @@ class LauncherTabletPage extends StatelessWidget {
                     : appTheme.currentTheme.colorScheme.primary,
           ),
 
-          const Expanded(child: SlideShowPage()),
+          // const Expanded(child: SlideShowPage()),
+          Expanded(child: layoutModel.currentPage),
         ],
       ),
     );
@@ -113,6 +116,7 @@ class _OptionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = ThemeChangerNotifier.watch(context).currentTheme;
+    // final layoutModel = LayoutModelNotifier.watch(context);
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
@@ -136,10 +140,13 @@ class _OptionsList extends StatelessWidget {
               color: appTheme.colorScheme.primary,
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => pageRoutes[index].page),
-              );
+              final layoutModel = LayoutModelNotifier.read(context);
+              layoutModel.currentPage = pageRoutes[index].page;
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => pageRoutes[index].page),
+              // );
             },
           ),
     );

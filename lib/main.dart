@@ -37,6 +37,65 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // return ThemeChangerNotifier(
+    //   model: themeChanger,
+    //   // // ------- Way 1
+    //   // // Se utiliza un Builder para obtener un BuildContext que está *debajo*
+    //   // // de ThemeChanger2Notifier en el árbol de widgets. Esto permite
+    //   // // que MaterialApp use ThemeChanger2Notifier.watch() para escuchar
+    //   // // los cambios de tema y reconstruirse cuando el tema cambie.
+    //   // child: Builder(
+    //   //   builder: (BuildContext context) {
+    //   //     final currentThemeFromNotifier =
+    //   //         ThemeChangerNotifier.watch(context).currentTheme;
+
+    //   //     return MaterialApp(
+    //   //       debugShowCheckedModeBanner: false,
+    //   //       title: 'Designs app',
+    //   //       // Se usa el tema obtenido del Notifier, que ahora es reactivo.
+    //   //       theme: currentThemeFromNotifier,
+    //   //       home: const LauncherPage(),
+    //   //     );
+    //   //   },
+    //   // ),
+
+    //   // ------- Way 2
+    //   // Se reemplaza el Builder con un widget dedicado
+    //   child: LayoutModelNotifier(
+    //     model: layoutModel,
+    //     child: const AppWithTheme(),
+    //   ),
+    // );
+
+    return AppProviders(
+      themeChanger: themeChanger,
+      layoutModel: layoutModel,
+      child: const AppWithTheme(),
+    );
+  }
+}
+
+class AppProviders extends StatelessWidget {
+  final ThemeChanger themeChanger;
+  final LayoutModel layoutModel;
+  final Widget child;
+
+  const AppProviders({
+    super.key,
+    required this.themeChanger,
+    required this.layoutModel,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // return ThemeChangerNotifier(
+    //   model: themeChanger,
+    //   child: LayoutModelNotifier(
+    //     model: layoutModel,
+    //     child: child,
+    //   ),
+    // );
     return ThemeChangerNotifier(
       model: themeChanger,
       // // ------- Way 1
