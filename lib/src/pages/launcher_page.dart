@@ -31,9 +31,9 @@ class _PrincipalMenu extends StatelessWidget {
     final appTheme = ThemeChangerNotifier.watch(context);
     final primaryColor = appTheme.currentTheme.colorScheme.primary;
 
-    return Drawer(
-      backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
-      child: SafeArea(
+    return SafeArea(
+      child: Drawer(
+        backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
         child: Column(
           children: [
             SizedBox(
