@@ -10,15 +10,20 @@ class SlideShowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLarge = MediaQuery.sizeOf(context).height > 500;
+
+    final listSlideShow = const <Widget>[
+      Expanded(child: MySlideShow()),
+      Expanded(child: MySlideShow()),
+    ];
+
     // return const Scaffold(body: SlideShow());
-    return const Scaffold(
+    return Scaffold(
       // backgroundColor: Colors.purple,
-      body: Column(
-        children: [
-          Expanded(child: MySlideShow()),
-          Expanded(child: MySlideShow()),
-        ],
-      ),
+      body:
+          isLarge
+              ? Column(children: listSlideShow)
+              : Row(children: listSlideShow),
     );
   }
 }
@@ -46,11 +51,11 @@ class MySlideShow extends StatelessWidget {
         duration: Duration(milliseconds: 2500),
       ),
       slides: [
-        // SvgPicture.asset('assets/svgs/slide-1.svg'),
-        // SvgPicture.asset('assets/svgs/slide-2.svg'),
-        // SvgPicture.asset('assets/svgs/slide-3.svg'),
-        // SvgPicture.asset('assets/svgs/slide-4.svg'),
-        // SvgPicture.asset('assets/svgs/slide-5.svg'),
+        SvgPicture.asset('assets/svgs/slide-1.svg'),
+        SvgPicture.asset('assets/svgs/slide-2.svg'),
+        SvgPicture.asset('assets/svgs/slide-3.svg'),
+        SvgPicture.asset('assets/svgs/slide-4.svg'),
+        SvgPicture.asset('assets/svgs/slide-5.svg'),
         SvgPicture.asset('assets/svgs/slide-6.svg'),
         SvgPicture.asset('assets/svgs/slide-7.svg'),
         SvgPicture.asset('assets/svgs/slide-8.svg'),
