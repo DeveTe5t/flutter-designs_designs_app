@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '/src/pages/pages.dart';
 
 class LayoutModel with ChangeNotifier {
-  Widget _currentPage = const SlideShowPage();
+  // Widget _currentPage = const SlideShowPage();
+  Widget _currentPage = const PinterestPage();
 
   Widget get currentPage => _currentPage;
 

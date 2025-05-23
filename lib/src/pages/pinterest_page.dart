@@ -474,122 +474,115 @@ class _PinterestGridState extends State<PinterestGrid> {
   @override
   Widget build(BuildContext context) {
     // ********** With package
-    //------- Solution 1
-    // return Container(
-    //   padding: const EdgeInsets.symmetric(horizontal: 20),
-    //   child: MasonryGridView.count(
-    //     controller: controller,
-    //     crossAxisCount: 2,
-    //     mainAxisSpacing: 4,
-    //     crossAxisSpacing: 4,
-    //     // padding: const EdgeInsets.all(10),
-    //     itemCount: items.length,
-    //     itemBuilder: (context, index) {
-    //       return _Tile(index: index, extent: (index % 5 + 1) * 100);
-    //     },
-    //   ),
-    // );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth <= 0 || constraints.maxHeight <= 0) {
+          // You can show a CircularProgressIndicator or a SizedBox.shrink().
+          return const Center(child: CircularProgressIndicator());
+        }
 
-    //------- Solution 2
-    // return SingleChildScrollView(
-    //   controller: controller,
-    //   child: StaggeredGrid.count(
-    //     crossAxisCount: 4,
-    //     mainAxisSpacing: 4,
-    //     crossAxisSpacing: 4,
-    //     children: List.generate(
-    //       items.length,
-    //       (index) => _PinterestItem2(index: index),
-    //     ),
-    //   ),
-    // );
+        int columnCount = 2;
+        if (MediaQuery.sizeOf(context).width > 500) {
+          columnCount = 3;
+        } else {
+          columnCount = 2;
+        }
 
-    //------- Solution 3
-    // return GridView.custom(
-    //   controller: controller,
-    //   padding: const EdgeInsets.symmetric(horizontal: 10),
-    //   gridDelegate: SliverWovenGridDelegate.count(
-    //     crossAxisCount: 2,
-    //     pattern: [
-    //       const WovenGridTile(1),
-    //       const WovenGridTile(
-    //         5 / 7,
-    //         crossAxisRatio: 0.9,
-    //         alignment: AlignmentDirectional.centerEnd,
-    //       ),
-    //     ],
-    //   ),
-    //   childrenDelegate: SliverChildBuilderDelegate(
-    //     (context, index) => _PinterestItem(index: index),
-    //     childCount: items.length,
-    //   ),
-    // );
+        //------- Solution 1
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: MasonryGridView.count(
+            controller: controller,
+            // colums
+            crossAxisCount: columnCount,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            // padding: const EdgeInsets.all(10),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return _Tile(index: index, extent: (index % 5 + 1) * 100);
+            },
+          ),
+        );
 
-    //------- Solution 4
-    return GridView.custom(
-      controller: controller,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      gridDelegate: SliverQuiltedGridDelegate(
-        crossAxisCount: 4,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        repeatPattern: QuiltedGridRepeatPattern.inverted,
-        pattern: const [QuiltedGridTile(3, 2), QuiltedGridTile(2, 2)],
-      ),
-      childrenDelegate: SliverChildBuilderDelegate(
-        (context, index) => _PinterestItem(index: index),
-        childCount: items.length,
-      ),
+        //------- Solution 2
+        // return SingleChildScrollView(
+        //   controller: controller,
+        //   child: StaggeredGrid.count(
+        //     // when _PinterestItem2, crossAxisCellCount = 2
+        //     // 4 = 2 col, 6 = 3 col
+        //     // crossAxisCount / crossAxisCellCount
+        //     crossAxisCount: columnCount * 2,
+        //     mainAxisSpacing: 4,
+        //     crossAxisSpacing: 4,
+        //     children: List.generate(
+        //       items.length,
+        //       (index) => _PinterestItem2(index: index),
+        //     ),
+        //   ),
+        // );
+
+        //------- Solution 3
+        // return GridView.custom(
+        //   controller: controller,
+        //   padding: const EdgeInsets.symmetric(horizontal: 10),
+        //   gridDelegate: SliverWovenGridDelegate.count(
+        //     crossAxisCount: 2,
+        //     pattern: [
+        //       const WovenGridTile(1),
+        //       const WovenGridTile(
+        //         5 / 7,
+        //         crossAxisRatio: 0.9,
+        //         alignment: AlignmentDirectional.centerEnd,
+        //       ),
+        //     ],
+        //   ),
+        //   childrenDelegate: SliverChildBuilderDelegate(
+        //     (context, index) => _PinterestItem(index: index),
+        //     childCount: items.length,
+        //   ),
+        // );
+
+        //------- Solution 4
+        // return GridView.custom(
+        //   controller: controller,
+        //   padding: const EdgeInsets.symmetric(horizontal: 10),
+        //   gridDelegate: SliverQuiltedGridDelegate(
+        //     crossAxisCount: 4,
+        //     mainAxisSpacing: 4,
+        //     crossAxisSpacing: 4,
+        //     repeatPattern: QuiltedGridRepeatPattern.mirrored,
+        //     pattern: const [QuiltedGridTile(3, 2), QuiltedGridTile(2, 2)],
+        //   ),
+        //   childrenDelegate: SliverChildBuilderDelegate(
+        //     (context, index) => _PinterestItem(index: index),
+        //     childCount: items.length,
+        //   ),
+        // );
+      },
     );
   }
 }
 
-// class _Tile extends StatelessWidget {
-//   const _Tile({required this.index, required this.extent});
-//   final int index;
-//   final double extent;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: extent,
-//       decoration: const BoxDecoration(
-//         color: Colors.blue,
-//         borderRadius: BorderRadius.all(Radius.circular(30)),
-//       ),
-//       child: Center(
-//         child: CircleAvatar(
-//           backgroundColor: Colors.white,
-//           child: Text('$index'),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class _PinterestItem extends StatelessWidget {
+class _Tile extends StatelessWidget {
+  const _Tile({required this.index, required this.extent});
   final int index;
-  const _PinterestItem({required this.index});
+  final double extent;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = ThemeChangerNotifier.watch(context);
 
     return Container(
-      // margin: const EdgeInsets.all(5),
+      height: extent,
       decoration: BoxDecoration(
         // color: Colors.blue,
-        // color:
-        //     appTheme.darkTheme
-        //         ? appTheme.currentTheme.colorScheme.onPrimary
-        //         : appTheme.currentTheme.colorScheme.primary,
         color: appTheme.currentTheme.colorScheme.primary,
         borderRadius: const BorderRadius.all(Radius.circular(30)),
       ),
       child: Center(
         child: CircleAvatar(
           backgroundColor: Colors.white,
-          // backgroundColor: appTheme.currentTheme.colorScheme.onPrimaryContainer,
           child: Text('$index', style: const TextStyle(color: Colors.black)),
         ),
       ),
@@ -597,28 +590,61 @@ class _PinterestItem extends StatelessWidget {
   }
 }
 
-// class _PinterestItem2 extends StatelessWidget {
+// class _PinterestItem extends StatelessWidget {
 //   final int index;
-//   const _PinterestItem2({required this.index});
+//   const _PinterestItem({required this.index});
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return StaggeredGridTile.count(
-//       crossAxisCellCount: 2,
-//       mainAxisCellCount: index.isEven ? 2 : 3,
-//       child: Container(
-//         margin: const EdgeInsets.all(5),
-//         decoration: const BoxDecoration(
-//           color: Colors.blue,
-//           borderRadius: BorderRadius.all(Radius.circular(30)),
-//         ),
-//         child: Center(
-//           child: CircleAvatar(
-//             backgroundColor: Colors.white,
-//             child: Text('$index'),
-//           ),
+//     final appTheme = ThemeChangerNotifier.watch(context);
+
+//     return Container(
+//       // margin: const EdgeInsets.all(5),
+//       decoration: BoxDecoration(
+//         // color: Colors.blue,
+//         // color:
+//         //     appTheme.darkTheme
+//         //         ? appTheme.currentTheme.colorScheme.onPrimary
+//         //         : appTheme.currentTheme.colorScheme.primary,
+//         color: appTheme.currentTheme.colorScheme.primary,
+//         borderRadius: const BorderRadius.all(Radius.circular(30)),
+//       ),
+//       child: Center(
+//         child: CircleAvatar(
+//           backgroundColor: Colors.white,
+//           // backgroundColor: appTheme.currentTheme.colorScheme.onPrimaryContainer,
+//           child: Text('$index', style: const TextStyle(color: Colors.black)),
 //         ),
 //       ),
 //     );
 //   }
 // }
+
+class _PinterestItem2 extends StatelessWidget {
+  final int index;
+  const _PinterestItem2({required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final appTheme = ThemeChangerNotifier.watch(context);
+
+    return StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: index.isEven ? 2 : 3,
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          // color: Colors.blue,
+          color: appTheme.currentTheme.colorScheme.primary,
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+        ),
+        child: Center(
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Text('$index', style: const TextStyle(color: Colors.black)),
+          ),
+        ),
+      ),
+    );
+  }
+}

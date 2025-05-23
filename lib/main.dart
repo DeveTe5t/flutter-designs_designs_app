@@ -156,9 +156,11 @@ class AppWithTheme extends StatelessWidget {
           final screenSize = MediaQuery.sizeOf(context).width;
 
           if (screenSize > 500) {
+            // return const LauncherTabletPage(key: ValueKey('tabletPage'));
             return const LauncherTabletPage();
           }
 
+          // return const LauncherPage(key: ValueKey('phonePage'));
           return const LauncherPage();
         },
       ),
