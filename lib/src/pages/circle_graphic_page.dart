@@ -17,33 +17,37 @@ class _CircleGraphicPageState extends State<CircleGraphicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomRadialProgress(percent: percent),
-              CustomRadialProgress(
-                percent: percent * 1.2,
-                primaryColor: Colors.red,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomRadialProgress(percent: percent),
+                  CustomRadialProgress(
+                    percent: percent * 1.2,
+                    primaryColor: Colors.red,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomRadialProgress(
+                    percent: percent * 1.4,
+                    primaryColor: Colors.green,
+                  ),
+                  CustomRadialProgress(
+                    percent: percent * 1.6,
+                    primaryColor: Colors.purple,
+                  ),
+                ],
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomRadialProgress(
-                percent: percent * 1.4,
-                primaryColor: Colors.green,
-              ),
-              CustomRadialProgress(
-                percent: percent * 1.6,
-                primaryColor: Colors.purple,
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
