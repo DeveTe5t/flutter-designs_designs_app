@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animate_do/animate_do.dart';
 
@@ -22,6 +23,7 @@ class EmergencyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final currentOrientation = MediaQuery.of(context).orientation;
     final currentOrientation = MediaQuery.orientationOf(context).name;
+    final isLarge = MediaQuery.sizeOf(context).height > 500;
 
     // other way to do it
     // OrientationBuilder(
@@ -163,72 +165,74 @@ class EmergencyPage extends StatelessWidget {
             )
             .toList();
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          // way 1: it can be better, not seems work in horizantal screen
-          // bacause add currentOrientation
-          // Container(
-          //   margin: EdgeInsets.only(
-          //     top: currentOrientation == Orientation.portrait ? 240 : 300,
-          //   ),
-          //   child: ListView(
-          //     physics: const BouncingScrollPhysics(),
-          //     children: itemMap,
-          //   ),
-          // ),
-          // way 2: better to way 1 and similar to way 3 but more explicit
-          // in horizontal screen, it start behind the icon header
-          // Positioned(
-          //   top: currentOrientation == Orientation.portrait ? 240 : 300,
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   child: ListView(
-          //     physics: const BouncingScrollPhysics(),
-          //     padding: const EdgeInsets.only(bottom: 40),
-          //     children: itemMap,
-          //   ),
-          // ),
-          // way 3: a little better than way 2
-          ListView(
-            // Real space height IconHeader
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(top: 300, bottom: 40),
-            children: itemMap,
-          ),
-          const PageHeader(),
-        ],
-      ),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // way 1: it can be better, not seems work in horizantal screen
+            // bacause add currentOrientation
+            // Container(
+            //   margin: EdgeInsets.only(
+            //     top: currentOrientation == Orientation.portrait ? 240 : 300,
+            //   ),
+            //   child: ListView(
+            //     physics: const BouncingScrollPhysics(),
+            //     children: itemMap,
+            //   ),
+            // ),
+            // way 2: better to way 1 and similar to way 3 but more explicit
+            // in horizontal screen, it start behind the icon header
+            // Positioned(
+            //   top: currentOrientation == Orientation.portrait ? 240 : 300,
+            //   left: 0,
+            //   right: 0,
+            //   bottom: 0,
+            //   child: ListView(
+            //     physics: const BouncingScrollPhysics(),
+            //     padding: const EdgeInsets.only(bottom: 40),
+            //     children: itemMap,
+            //   ),
+            // ),
+            // way 3: a little better than way 2
+            ListView(
+              // Real space height IconHeader
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(top: isLarge ? 310 : 10, bottom: 40),
+              children: itemMap,
+            ),
+            if (isLarge) const PageHeader(),
+          ],
+        ),
 
-      // // way 4: using slivers
-      // body: CustomScrollView(
-      //   slivers: <Widget>[
-      //     // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
-      //     SliverAppBar(
-      //       // Para mantenerlo siempre visible en la parte superior
-      //       pinned: true,
-      //       // No flotante para que no reaparezca al hacer scroll hacia arriba
-      //       floating: false,
-      //       // expandedHeight: 250.0, // Altura deseada del área del header
-      //       expandedHeight:
-      //           currentOrientation == Orientation.portrait
-      //               ? 240.0
-      //               : 300.0, // Altura deseada del área del header
-      //       // O el color de fondo que prefieras
-      //       backgroundColor: Colors.transparent,
-      //       flexibleSpace: const FlexibleSpaceBar(background: PageHeader()),
-      //     ),
-      //     SliverList(
-      //       delegate: SliverChildBuilderDelegate((
-      //         BuildContext context,
-      //         int index,
-      //       ) {
-      //         return itemMap[index];
-      //       }, childCount: itemMap.length),
-      //     ),
-      //   ],
-      // ),
+        // // way 4: using slivers
+        // body: CustomScrollView(
+        //   slivers: <Widget>[
+        //     // Sliver 1: El Encabezado (usando SliverAppBar o SliverPersistentHeader)
+        //     SliverAppBar(
+        //       // Para mantenerlo siempre visible en la parte superior
+        //       pinned: true,
+        //       // No flotante para que no reaparezca al hacer scroll hacia arriba
+        //       floating: false,
+        //       // expandedHeight: 250.0, // Altura deseada del área del header
+        //       expandedHeight:
+        //           currentOrientation == Orientation.portrait
+        //               ? 240.0
+        //               : 300.0, // Altura deseada del área del header
+        //       // O el color de fondo que prefieras
+        //       backgroundColor: Colors.transparent,
+        //       flexibleSpace: const FlexibleSpaceBar(background: PageHeader()),
+        //     ),
+        //     SliverList(
+        //       delegate: SliverChildBuilderDelegate((
+        //         BuildContext context,
+        //         int index,
+        //       ) {
+        //         return itemMap[index];
+        //       }, childCount: itemMap.length),
+        //     ),
+        //   ],
+        // ),
+      ),
     );
   }
 }
