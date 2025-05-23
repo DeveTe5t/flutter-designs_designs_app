@@ -7,7 +7,11 @@ class SliverListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final isLarge =
+        (MediaQuery.sizeOf(context).width > 500 &&
+            MediaQuery.sizeOf(context).height < 450);
+
+    return Scaffold(
       // body: _TaskList(),
       // body: _Title(),
       body: Stack(
@@ -15,9 +19,9 @@ class SliverListPage extends StatelessWidget {
           _MainScroll(
             title: 'Hey',
             subTitle: "What's up",
-            minHeightHeader: 210,
+            minHeightHeader: isLarge ? 130 : 210,
           ),
-          Positioned(bottom: -10, right: 0, child: _ButtonNewList()),
+          const Positioned(bottom: -10, right: 0, child: _ButtonNewList()),
         ],
       ),
     );
@@ -32,10 +36,11 @@ class _ButtonNewList extends StatelessWidget {
     // final size = MediaQuery.of(context).size;
     final sizeWidth = MediaQuery.sizeOf(context).width;
     final appTheme = ThemeChangerNotifier.watch(context);
+    final isLarge = (MediaQuery.sizeOf(context).width > 500);
 
     return ButtonTheme(
       // minWidth: size.width * 0.9,
-      minWidth: sizeWidth * 0.9,
+      minWidth: isLarge ? sizeWidth * 0.6 : sizeWidth * 0.9,
       child: MaterialButton(
         onPressed: () {},
         // color: Colors.blue,
@@ -114,7 +119,7 @@ class _MainScroll extends StatelessWidget {
               // alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
-                vertical: 16,
+                vertical: 16.0,
               ),
               child: _Title(title: title, subTitle: subTitle),
             ),
@@ -254,12 +259,15 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = ThemeChangerNotifier.watch(context);
+    final isLarge =
+        (MediaQuery.sizeOf(context).width > 500 &&
+            MediaQuery.sizeOf(context).height < 450);
 
     return Column(
       // spacing: 30,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 30),
+        SizedBox(height: isLarge ? 10 : 30),
         // Container(
         // alignment: Alignment.centerLeft,
         // margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -271,7 +279,7 @@ class _Title extends StatelessWidget {
             //         ? appTheme.currentTheme.colorScheme.secondary
             //         : const Color(0xff532128),
             color: appTheme.currentTheme.colorScheme.secondary,
-            fontSize: 50,
+            fontSize: isLarge ? 30 : 50,
           ),
         ),
         // ),
@@ -279,7 +287,7 @@ class _Title extends StatelessWidget {
           children: [
             const SizedBox(width: 110),
             Positioned(
-              bottom: 8,
+              bottom: isLarge ? 2 : 8,
               child: Container(
                 width: 110,
                 height: 8,
@@ -294,9 +302,9 @@ class _Title extends StatelessWidget {
             // margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             Text(
               subTitle,
-              style: const TextStyle(
-                color: Color(0xffD93A30),
-                fontSize: 50,
+              style: TextStyle(
+                color: const Color(0xffD93A30),
+                fontSize: isLarge ? 30 : 50,
                 fontWeight: FontWeight.bold,
               ),
             ),
